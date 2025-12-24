@@ -1,90 +1,77 @@
-here/* ELITE SMM PANEL BY ABDELNASEER TALAT 2025 */
+/* * NT-SMM-ELITE-FRAMEWORK v2.0
+ * ARCHITECT: ABDELNASEER TALAT
+ * PRIVATE SOURCE - DO NOT DISTRIBUTE
+ */
+
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
 
 :root {
-    --primary: #00d2ff;
-    --accent: #ff0055;
-    --dark: #050a15;
-    --card: rgba(255, 255, 255, 0.03);
+    --nt-primary: #00d2ff;
+    --nt-insta: #e1306c;
+    --nt-tiktok: #ff0050;
+    --nt-fb: #1877f2;
+    --nt-bg: #020617;
 }
 
 body {
     margin: 0; padding: 0; font-family: 'Cairo', sans-serif;
-    background: var(--dark); color: white; direction: rtl; overflow-x: hidden;
+    background: var(--nt-bg); color: #fff; direction: rtl;
 }
 
-/* خلفية تكنولوجية متحركة */
-.bg-gradient {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-    background: radial-gradient(circle at 20% 30%, #1a2a44 0%, #050a15 100%);
-}
-
-/* هيدر احترافي */
-header {
+/* الهيدر المطور: الصورة + الاسم */
+.nt-header-node {
     padding: 60px 20px; text-align: center;
+    background: radial-gradient(circle at center, #0f172a 0%, var(--nt-bg) 100%);
 }
 
-.brand-badge {
-    background: rgba(0, 210, 255, 0.1); border: 1px solid var(--primary);
-    padding: 10px 25px; border-radius: 50px; color: var(--primary);
-    font-weight: 800; font-size: 0.9rem; margin-bottom: 20px; display: inline-block;
+.nt-profile-frame {
+    width: 130px; height: 130px; border-radius: 50%;
+    border: 3px solid var(--nt-primary);
+    box-shadow: 0 0 30px var(--nt-primary);
+    margin: 0 auto 20px; overflow: hidden;
+    transition: 0.5s ease;
 }
 
-.main-title {
-    font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900; margin: 10px 0;
-    text-shadow: 0 0 30px rgba(0, 210, 255, 0.4);
+.nt-profile-frame:hover { transform: scale(1.1) rotate(5deg); }
+.nt-profile-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+.nt-main-title {
+    font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900;
+    margin: 10px 0; text-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
 }
 
-/* شبكة الخدمات المميزة */
-.services-container {
-    max-width: 1200px; margin: 40px auto; padding: 0 20px;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;
+/* شبكة الكروت بالأسعار المعدلة والنور العريض */
+.nt-matrix-container {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px; max-width: 1200px; margin: 40px auto; padding: 0 20px;
 }
 
-.s-card {
-    background: var(--card); border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 25px; padding: 40px 30px; backdrop-filter: blur(10px);
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative; overflow: hidden;
+.nt-card-unit {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 28px; padding: 45px 25px;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(15px);
 }
 
-.s-card:hover {
-    border-color: var(--primary); transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 210, 255, 0.15);
+/* تأثير النور العريض (Glow) */
+.nt-card-unit:hover { transform: translateY(-12px); }
+.nt-card-unit.ig:hover { border-color: var(--nt-insta); box-shadow: 0 0 50px -10px var(--nt-insta); }
+.nt-card-unit.tt:hover { border-color: var(--nt-tiktok); box-shadow: 0 0 50px -10px var(--nt-tiktok); }
+.nt-card-unit.fb:hover { border-color: var(--nt-fb); box-shadow: 0 0 50px -10px var(--nt-fb); }
+
+.nt-icon-box img { width: 75px; margin-bottom: 20px; }
+
+.nt-cost-label {
+    display: block; font-size: 2rem; font-weight: 900;
+    color: #00ff88; margin: 20px 0;
 }
 
-.s-card::before {
-    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-    background: radial-gradient(circle, rgba(0, 210, 255, 0.05) 0%, transparent 70%);
-    pointer-events: none;
+.nt-action-btn {
+    display: block; width: 100%; padding: 16px; border-radius: 14px;
+    text-decoration: none; color: white; font-weight: 800; transition: 0.3s;
 }
 
-.icon-box {
-    font-size: 3rem; margin-bottom: 20px;
-}
-
-.s-card h3 { font-size: 1.8rem; margin: 0 0 10px; }
-
-.price-box {
-    background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px;
-    margin: 20px 0; border-right: 4px solid var(--primary);
-}
-
-.price-box span { font-size: 1.4rem; font-weight: 900; color: #00ff88; }
-
-.cta-button {
-    display: block; width: 100%; padding: 15px; border-radius: 12px;
-    background: linear-gradient(45deg, var(--primary), #00a2ff);
-    color: white; text-decoration: none; font-weight: 800;
-    transition: 0.3s; box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3);
-}
-
-.cta-button:hover { transform: scale(1.03); box-shadow: 0 8px 25px rgba(0, 210, 255, 0.5); }
-
-/* زرار واتساب العائم */
-.wa-float {
-    position: fixed; bottom: 30px; left: 30px; z-index: 100;
-    background: #25d366; width: 65px; height: 65px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
-}
+.ig-btn { background: var(--nt-insta); }
+.tt-btn { background: #000; border: 1px solid var(--nt-tiktok); }
+.fb-btn { background: var(--nt-fb); }
