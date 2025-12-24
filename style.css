@@ -1,77 +1,108 @@
-/* * NT-SMM-ELITE-FRAMEWORK v2.0
+/* * PROJECT: NT-TRENDING-SYSTEM-V1
  * ARCHITECT: ABDELNASEER TALAT
- * PRIVATE SOURCE - DO NOT DISTRIBUTE
+ * PRIVATE LICENSE - DO NOT CLONE
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
 
 :root {
-    --nt-primary: #00d2ff;
-    --nt-insta: #e1306c;
-    --nt-tiktok: #ff0050;
-    --nt-fb: #1877f2;
-    --nt-bg: #020617;
+    --trending-blue: #007bff;
+    --trending-dark: #0b0e11;
+    --trending-card: #151a21;
+    --insta-glow: #e1306c;
+    --tiktok-glow: #00f2ea;
+    --fb-glow: #1877f2;
 }
 
 body {
     margin: 0; padding: 0; font-family: 'Cairo', sans-serif;
-    background: var(--nt-bg); color: #fff; direction: rtl;
+    background-color: var(--trending-dark); color: #ffffff;
+    direction: rtl; line-height: 1.6;
 }
 
-/* الهيدر المطور: الصورة + الاسم */
-.nt-header-node {
-    padding: 60px 20px; text-align: center;
-    background: radial-gradient(circle at center, #0f172a 0%, var(--nt-bg) 100%);
+/* Header Style */
+.nt-nav {
+    background: rgba(11, 14, 17, 0.95);
+    padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px);
 }
 
-.nt-profile-frame {
-    width: 130px; height: 130px; border-radius: 50%;
-    border: 3px solid var(--nt-primary);
-    box-shadow: 0 0 30px var(--nt-primary);
-    margin: 0 auto 20px; overflow: hidden;
-    transition: 0.5s ease;
+.nt-header-content {
+    max-width: 1200px; margin: 0 auto; display: flex; 
+    align-items: center; justify-content: center; gap: 15px;
 }
 
-.nt-profile-frame:hover { transform: scale(1.1) rotate(5deg); }
-.nt-profile-frame img { width: 100%; height: 100%; object-fit: cover; }
-
-.nt-main-title {
-    font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900;
-    margin: 10px 0; text-shadow: 0 0 25px rgba(0, 210, 255, 0.4);
+.nt-header-content img {
+    width: 55px; height: 55px; border-radius: 50%;
+    border: 2px solid var(--trending-blue); box-shadow: 0 0 15px var(--trending-blue);
 }
 
-/* شبكة الكروت بالأسعار المعدلة والنور العريض */
-.nt-matrix-container {
+/* Hero Section */
+.nt-hero {
+    padding: 100px 20px; text-align: center;
+    background: radial-gradient(circle at top, #1c2431 0%, var(--trending-dark) 70%);
+}
+
+.nt-hero h1 {
+    font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 900; margin: 0;
+    letter-spacing: -1px; background: linear-gradient(to bottom, #fff, #aaa);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+/* Matrix Layout (SMM Trending Style) */
+.nt-matrix {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px; max-width: 1200px; margin: 40px auto; padding: 0 20px;
+    gap: 30px; max-width: 1200px; margin: -60px auto 100px; padding: 0 20px;
 }
 
-.nt-card-unit {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 28px; padding: 45px 25px;
-    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(15px);
+.nt-service-card {
+    background: var(--trending-card); border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px; padding: 40px 30px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
 }
 
-/* تأثير النور العريض (Glow) */
-.nt-card-unit:hover { transform: translateY(-12px); }
-.nt-card-unit.ig:hover { border-color: var(--nt-insta); box-shadow: 0 0 50px -10px var(--nt-insta); }
-.nt-card-unit.tt:hover { border-color: var(--nt-tiktok); box-shadow: 0 0 50px -10px var(--nt-tiktok); }
-.nt-card-unit.fb:hover { border-color: var(--nt-fb); box-shadow: 0 0 50px -10px var(--nt-fb); }
-
-.nt-icon-box img { width: 75px; margin-bottom: 20px; }
-
-.nt-cost-label {
-    display: block; font-size: 2rem; font-weight: 900;
-    color: #00ff88; margin: 20px 0;
+/* النور العريض الملون */
+.nt-service-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(255,255,255,0.15);
 }
 
-.nt-action-btn {
-    display: block; width: 100%; padding: 16px; border-radius: 14px;
-    text-decoration: none; color: white; font-weight: 800; transition: 0.3s;
+.ig-node:hover { box-shadow: 0 0 45px -10px var(--insta-glow); border-color: var(--insta-glow); }
+.tt-node:hover { box-shadow: 0 0 45px -10px var(--tiktok-glow); border-color: var(--tiktok-glow); }
+.fb-node:hover { box-shadow: 0 0 45px -10px var(--fb-glow); border-color: var(--fb-glow); }
+
+.nt-icon-stage { margin-bottom: 25px; }
+.nt-icon-stage img { width: 65px; }
+
+.nt-service-card h3 { font-size: 1.7rem; font-weight: 800; margin-bottom: 15px; }
+
+.nt-details {
+    list-style: none; padding: 0; margin: 20px 0; text-align: right;
 }
 
-.ig-btn { background: var(--nt-insta); }
-.tt-btn { background: #000; border: 1px solid var(--nt-tiktok); }
-.fb-btn { background: var(--nt-fb); }
+.nt-details li {
+    font-size: 0.95rem; color: #b0b3b8; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 10px;
+}
+
+.nt-details li::before { content: '✓'; color: #00ff88; font-weight: bold; }
+
+.nt-price-tag {
+    font-size: 2.2rem; font-weight: 900; color: #00ff88;
+    margin: 25px 0; display: block;
+}
+
+.nt-buy-btn {
+    display: block; width: 100%; padding: 18px; border-radius: 12px;
+    background: var(--trending-blue); color: #fff; text-decoration: none;
+    font-weight: 800; font-size: 1.1rem; transition: 0.3s;
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
+}
+
+.nt-buy-btn:hover { background: #0056b3; transform: scale(1.02); }
+
+/* Footer */
+footer {
+    text-align: center; padding: 60px; color: #666; font-size: 0.8rem;
+}
