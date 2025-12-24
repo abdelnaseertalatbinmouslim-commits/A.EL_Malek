@@ -3,147 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABDELNASEER SMM | Dashboard</title>
+    <title>NT-SMM | Private Access</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
 
-        /* إعدادات الألوان من الصورة بالظبط */
         :root {
-            --nt-bg-dark: #121418;      /* الخلفية الغامقة جداً */
-            --nt-card-bg: #22272e;     /* لون الكارت الرمادي */
-            --nt-price-pill: #e0e0e0;   /* كبسولة السعر الفاتحة */
-            --nt-glow-blue: #00e5ff;    /* توهج الصورة */
-            --nt-btn-pink: #e91e63;     /* زرار الانستا */
-            --nt-btn-blue: #3f51b5;     /* زرار التيك توك والفيسبوك */
+            --nt-bg: #0c0e12;
+            --nt-blue: #00e5ff;
+            --nt-card: #22272e;
         }
 
         body {
             margin: 0; padding: 0; font-family: 'Cairo', sans-serif;
-            background-color: var(--nt-bg-dark); color: white;
-            line-height: 1.4;
+            background-color: var(--nt-bg); color: white;
+            overflow-x: hidden;
         }
 
-        /* الجزء العلوي (الهيدر) */
-        .nt-top-section {
-            background: radial-gradient(circle at center, #1c2128 0%, var(--nt-bg-dark) 100%);
-            padding: 60px 20px; text-align: center;
-        }
-
-        .nt-avatar-glow {
-            width: 130px; height: 130px; border-radius: 50%;
-            border: 4px solid var(--nt-glow-blue);
-            box-shadow: 0 0 35px var(--nt-glow-blue);
-            margin: 0 auto 20px; overflow: hidden;
+        /* --- تصميم صفحة تسجيل الدخول --- */
+        #login-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--nt-bg); z-index: 9999;
             display: flex; align-items: center; justify-content: center;
         }
 
+        .login-box {
+            background: var(--nt-card); padding: 40px; border-radius: 25px;
+            width: 90%; max-width: 400px; text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .login-box h2 { margin-bottom: 30px; font-weight: 900; color: var(--nt-blue); }
+
+        .login-box input {
+            width: 100%; padding: 15px; margin-bottom: 20px;
+            border-radius: 12px; border: 1px solid #333;
+            background: #1a1d23; color: white; outline: none;
+            box-sizing: border-box; text-align: center; font-size: 1rem;
+        }
+
+        .login-box button {
+            width: 100%; padding: 15px; border-radius: 50px;
+            border: none; background: var(--nt-blue); color: #000;
+            font-weight: 900; cursor: pointer; transition: 0.3s;
+        }
+
+        .login-box button:hover { transform: scale(1.05); filter: brightness(1.2); }
+
+        /* --- ستايل صفحة الخدمات (مخفية في البداية) --- */
+        #main-content { display: none; }
+
+        /* (باقي التنسيقات اللي عملناها قبل كدة للخدمات) */
+        .nt-top-section { padding: 60px 20px; text-align: center; }
+        .nt-avatar-glow {
+            width: 120px; height: 120px; border-radius: 50%;
+            border: 4px solid var(--nt-blue); box-shadow: 0 0 30px var(--nt-blue);
+            margin: 0 auto 20px; overflow: hidden;
+        }
         .nt-avatar-glow img { width: 100%; height: 100%; object-fit: cover; }
-
-        .nt-main-title { font-size: 2.8rem; font-weight: 900; margin: 0; letter-spacing: 1px; }
-        .nt-sub-title { color: var(--nt-glow-blue); font-weight: 700; margin: 5px 0; font-size: 1.2rem; }
-        .nt-tagline { opacity: 0.5; font-size: 0.9rem; }
-
-        /* عنوان مصفوفة الخدمات */
-        .nt-section-label {
-            max-width: 1000px; margin: 40px auto 20px;
-            padding: 0 20px; font-weight: 900; color: #fff;
-            font-size: 1.1rem; letter-spacing: 1px;
-        }
-
-        /* شبكة الكروت (Matrix) */
-        .nt-services-grid {
+        .nt-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px; max-width: 1000px; margin: 0 auto 100px; padding: 0 20px;
+            gap: 25px; max-width: 1000px; margin: 0 auto; padding: 20px;
         }
-
-        .nt-item-card {
-            background-color: var(--nt-card-bg);
-            border-radius: 25px; padding: 40px 20px; text-align: center;
-            transition: 0.3s ease;
+        .nt-card {
+            background: var(--nt-card); border-radius: 25px; padding: 40px 20px;
+            text-align: center; transition: 0.3s;
         }
-
-        .nt-item-card:hover { transform: translateY(-8px); }
-
-        .nt-app-logo { width: 75px; height: 75px; margin-bottom: 15px; }
-        .nt-item-card h3 { font-size: 1.5rem; margin: 10px 0; font-weight: 700; }
-        .nt-item-card p { opacity: 0.6; font-size: 0.9rem; margin-bottom: 25px; }
-
-        /* تصميم كبسولة السعر الرمادية */
-        .nt-price-capsule {
-            background-color: var(--nt-price-pill);
-            color: #121418; padding: 12px 0; border-radius: 15px;
-            font-size: 1.8rem; font-weight: 900;
-            width: 85%; margin: 0 auto 20px;
+        .nt-price {
+            background: #e0e0e0; color: #121418; padding: 10px;
+            border-radius: 15px; font-size: 1.8rem; font-weight: 900;
+            width: 80%; margin: 15px auto;
         }
-        .nt-price-capsule span { color: #00c853; margin-left: 5px; }
-
-        /* الأزرار البيضاوية الملونة */
-        .nt-cta-btn {
-            display: block; width: 85%; margin: 0 auto;
-            padding: 14px; border-radius: 50px;
-            color: white; text-decoration: none; font-weight: 800;
-            font-size: 1.1rem; transition: 0.3s;
+        .nt-btn {
+            display: block; width: 80%; margin: 0 auto; padding: 12px;
+            border-radius: 50px; color: white; text-decoration: none; font-weight: 800;
         }
-
-        .insta-theme { background-color: var(--nt-btn-pink); }
-        .tiktok-theme, .fb-theme { background-color: var(--nt-btn-blue); }
-
-        .nt-cta-btn:hover { filter: brightness(1.2); letter-spacing: 1px; }
-
-        /* الفوتر الاحترافي */
-        footer {
-            padding: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);
-            background-color: #0c0e12;
-        }
-        .footer-brand { font-weight: 900; font-size: 0.9rem; margin-bottom: 10px; display: block; }
-        .footer-copy { opacity: 0.4; font-size: 0.75rem; }
     </style>
 </head>
 <body>
 
-    <header class="nt-top-section">
-        <div class="nt-avatar-glow">
-            <img src="IMG-20251223-WA0001.jpg" alt="عبد الناصر طلعت">
+    <div id="login-screen">
+        <div class="login-box">
+            <h2>دخول السيرفر</h2>
+            <input type="text" id="username" placeholder="اسم المستخدم">
+            <input type="password" id="password" placeholder="كلمة السر">
+            <button onclick="checkLogin()">دخول للنظام</button>
+            <p id="error-msg" style="color: #ff4444; margin-top: 15px; font-size: 0.8rem; display: none;">البيانات غير صحيحة!</p>
         </div>
-        <h1 class="nt-main-title">ABDELNASEER SMM</h1>
-        <p class="nt-sub-title">PRO SERVICES DASHBOARD</p>
-        <span class="nt-tagline">a style-color.SERVICES DASHBOARD</span>
-    </header>
+    </div>
 
-    <div class="nt-section-label">NT-SERVICES-MATRIX</div>
+    <div id="main-content">
+        <header class="nt-top-section">
+            <div class="nt-avatar-glow">
+                <img src="IMG-20251223-WA0001.jpg" alt="عبد الناصر">
+            </div>
+            <h1>ABDELNASEER SMM</h1>
+            <p style="color: var(--nt-blue); font-weight: 700;">PRO SERVICES DASHBOARD</p>
+        </header>
 
-    <main class="nt-services-grid">
-        
-        <div class="nt-item-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" class="nt-app-logo" alt="Instagram">
-            <h3>Instagram</h3>
-            <p>متابعين ولايكات وريلز انستجرام</p>
-            <div class="nt-price-capsule">60 <span>ج.م</span></div>
-            <a href="https://wa.me/201098227150" class="nt-cta-btn insta-theme">اطلب الآن</a>
-        </div>
+        <main class="nt-grid">
+            <div class="nt-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" width="70" alt="IG">
+                <h3>Instagram</h3>
+                <div class="nt-price">60 <span style="color:green">ج.م</span></div>
+                <a href="https://wa.me/201098227150" class="nt-btn" style="background: #e91e63;">اطلب الآن</a>
+            </div>
+            
+            <div class="nt-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" width="70" alt="TT">
+                <h3>TikTok</h3>
+                <div class="nt-price">70 <span style="color:green">ج.م</span></div>
+                <a href="https://wa.me/201098227150" class="nt-btn" style="background: #3f51b5;">اطلب الآن</a>
+            </div>
+        </main>
+    </div>
 
-        <div class="nt-item-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="nt-app-logo" alt="TikTok">
-            <h3>TikTok</h3>
-            <p>متابعين ومشاهدات تيك توك</p>
-            <div class="nt-price-capsule">70 <span>ج.م</span></div>
-            <a href="https://wa.me/201098227150" class="nt-cta-btn tiktok-theme">اطلب الآن</a>
-        </div>
+    <script>
+        function checkLogin() {
+            var user = document.getElementById("username").value;
+            var pass = document.getElementById("password").value;
 
-        <div class="nt-item-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" class="nt-app-logo" alt="Facebook">
-            <h3>Facebook</h3>
-            <p>متابعين ولايكات فيسبوك</p>
-            <div class="nt-price-capsule">70 <span>ج.م</span></div>
-            <a href="https://wa.me/201098227150" class="nt-cta-btn fb-theme">اطلب الآن</a>
-        </div>
-
-    </main>
-
-    <footer>
-        <span class="footer-brand">AUTHOR: ABDELNASEER TALAT (NT-PRO)</span>
-        <span class="footer-copy">copyright: < x-0.44</span>
-    </footer>
+            // هنا اليوزر نيم والباسورد اللي هتستخدمهم (تقدر تغيرهم)
+            if (user === "nasser" && pass === "1234") {
+                document.getElementById("login-screen").style.display = "none";
+                document.getElementById("main-content").style.display = "block";
+            } else {
+                document.getElementById("error-msg").style.display = "block";
+            }
+        }
+    </script>
 
 </body>
 </html>
