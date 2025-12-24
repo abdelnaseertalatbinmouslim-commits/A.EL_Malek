@@ -3,162 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMM TRENDING | NT SERVER</title>
-    
+    <title>ABDELNASEER SMM | Dashboard</title>
     <style>
-        /* ستايل SMM Trending الأصلي - حصري لكابتن عبد الناصر */
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
 
+        /* إعدادات الألوان من الصورة بالظبط */
         :root {
-            --dark-bg: #0b0e11; /* نفس لون خلفية SMM Trending */
-            --card-bg: #151a21;
-            --accent: #007bff;
-            --text-gray: #b0b3b8;
+            --nt-bg-dark: #121418;      /* الخلفية الغامقة جداً */
+            --nt-card-bg: #22272e;     /* لون الكارت الرمادي */
+            --nt-price-pill: #e0e0e0;   /* كبسولة السعر الفاتحة */
+            --nt-glow-blue: #00e5ff;    /* توهج الصورة */
+            --nt-btn-pink: #e91e63;     /* زرار الانستا */
+            --nt-btn-blue: #3f51b5;     /* زرار التيك توك والفيسبوك */
         }
 
         body {
             margin: 0; padding: 0; font-family: 'Cairo', sans-serif;
-            background-color: var(--dark-bg); color: #fff;
+            background-color: var(--nt-bg-dark); color: white;
+            line-height: 1.4;
         }
 
-        /* الهيدر الثابت */
-        .nt-navbar {
-            background: rgba(11, 14, 17, 0.98);
-            padding: 15px 20px;
-            border-bottom: 1px solid #2d333b;
-            position: sticky; top: 0; z-index: 1000;
-            display: flex; align-items: center; justify-content: center; gap: 15px;
+        /* الجزء العلوي (الهيدر) */
+        .nt-top-section {
+            background: radial-gradient(circle at center, #1c2128 0%, var(--nt-bg-dark) 100%);
+            padding: 60px 20px; text-align: center;
         }
 
-        .nt-navbar img {
-            width: 50px; height: 50px; border-radius: 50%;
-            border: 2px solid var(--accent);
+        .nt-avatar-glow {
+            width: 130px; height: 130px; border-radius: 50%;
+            border: 4px solid var(--nt-glow-blue);
+            box-shadow: 0 0 35px var(--nt-glow-blue);
+            margin: 0 auto 20px; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        /* قسم العنوان الرئيسي */
-        .nt-hero {
-            padding: 80px 20px; text-align: center;
-            background: linear-gradient(to bottom, #1c2431 0%, var(--dark-bg) 100%);
+        .nt-avatar-glow img { width: 100%; height: 100%; object-fit: cover; }
+
+        .nt-main-title { font-size: 2.8rem; font-weight: 900; margin: 0; letter-spacing: 1px; }
+        .nt-sub-title { color: var(--nt-glow-blue); font-weight: 700; margin: 5px 0; font-size: 1.2rem; }
+        .nt-tagline { opacity: 0.5; font-size: 0.9rem; }
+
+        /* عنوان مصفوفة الخدمات */
+        .nt-section-label {
+            max-width: 1000px; margin: 40px auto 20px;
+            padding: 0 20px; font-weight: 900; color: #fff;
+            font-size: 1.1rem; letter-spacing: 1px;
         }
 
-        .nt-hero h1 {
-            font-size: 3.5rem; font-weight: 900; margin: 0;
-            background: linear-gradient(to right, #fff, #888);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        /* شبكة الكروت (Matrix) */
+        .nt-services-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; max-width: 1000px; margin: 0 auto 100px; padding: 0 20px;
         }
 
-        /* شبكة الخدمات - ستايل التريندينج */
-        .nt-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px; max-width: 1200px; margin: -40px auto 100px; padding: 0 20px;
+        .nt-item-card {
+            background-color: var(--nt-card-bg);
+            border-radius: 25px; padding: 40px 20px; text-align: center;
+            transition: 0.3s ease;
         }
 
-        .nt-card {
-            background: var(--card-bg);
-            border: 1px solid #2d333b;
-            border-radius: 20px; padding: 40px 25px;
-            text-align: center; transition: 0.4s;
-            position: relative;
+        .nt-item-card:hover { transform: translateY(-8px); }
+
+        .nt-app-logo { width: 75px; height: 75px; margin-bottom: 15px; }
+        .nt-item-card h3 { font-size: 1.5rem; margin: 10px 0; font-weight: 700; }
+        .nt-item-card p { opacity: 0.6; font-size: 0.9rem; margin-bottom: 25px; }
+
+        /* تصميم كبسولة السعر الرمادية */
+        .nt-price-capsule {
+            background-color: var(--nt-price-pill);
+            color: #121418; padding: 12px 0; border-radius: 15px;
+            font-size: 1.8rem; font-weight: 900;
+            width: 85%; margin: 0 auto 20px;
+        }
+        .nt-price-capsule span { color: #00c853; margin-left: 5px; }
+
+        /* الأزرار البيضاوية الملونة */
+        .nt-cta-btn {
+            display: block; width: 85%; margin: 0 auto;
+            padding: 14px; border-radius: 50px;
+            color: white; text-decoration: none; font-weight: 800;
+            font-size: 1.1rem; transition: 0.3s;
         }
 
-        /* التوهج النيون العريض عند الوقوف */
-        .nt-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.2);
+        .insta-theme { background-color: var(--nt-btn-pink); }
+        .tiktok-theme, .fb-theme { background-color: var(--nt-btn-blue); }
+
+        .nt-cta-btn:hover { filter: brightness(1.2); letter-spacing: 1px; }
+
+        /* الفوتر الاحترافي */
+        footer {
+            padding: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);
+            background-color: #0c0e12;
         }
-
-        /* نور مخصص لكل منصة */
-        .insta:hover { border-color: #e1306c; box-shadow: 0 0 40px rgba(225, 48, 108, 0.3); }
-        .tiktok:hover { border-color: #00f2ea; box-shadow: 0 0 40px rgba(0, 242, 234, 0.2); }
-        .fb:hover { border-color: #1877f2; box-shadow: 0 0 40px rgba(24, 119, 242, 0.3); }
-
-        .nt-icon { width: 70px; margin-bottom: 20px; }
-
-        .nt-details {
-            list-style: none; padding: 0; margin: 20px 0;
-            text-align: right; border-top: 1px solid #2d333b; padding-top: 20px;
-        }
-
-        .nt-details li {
-            color: var(--text-gray); font-size: 0.95rem; margin-bottom: 12px;
-            display: flex; align-items: center; gap: 10px;
-        }
-
-        .nt-details li::before { content: '✓'; color: #00ff88; font-weight: bold; }
-
-        .nt-price {
-            font-size: 2.2rem; font-weight: 900; color: #00ff88;
-            margin-bottom: 25px; display: block;
-        }
-
-        .nt-btn {
-            display: block; width: 100%; padding: 15px; border-radius: 12px;
-            color: #fff; text-decoration: none; font-weight: 800;
-            background: var(--accent); transition: 0.3s;
-        }
-
-        .btn-insta { background: linear-gradient(45deg, #f09433, #e1306c, #bc1888); }
-        .btn-tiktok { background: #000; border: 1px solid #00f2ea; }
-        .btn-fb { background: #1877f2; }
-
-        .nt-btn:hover { filter: brightness(1.2); transform: scale(1.02); }
-
-        footer { text-align: center; padding: 50px; opacity: 0.3; font-size: 0.8rem; }
+        .footer-brand { font-weight: 900; font-size: 0.9rem; margin-bottom: 10px; display: block; }
+        .footer-copy { opacity: 0.4; font-size: 0.75rem; }
     </style>
 </head>
 <body>
 
-    <nav class="nt-navbar">
-        <img src="IMG-20251223-WA0001.jpg" alt="Abdelnaseer Talat">
-        <span style="font-weight: 900; font-size: 1.3rem;">ABDELNASEER SMM</span>
-    </nav>
-
-    <header class="nt-hero">
-        <h1>SMM TRENDING NT</h1>
-        <p style="color: var(--text-gray); font-weight: 700; margin-top: 15px;">الجيل القادم من خدمات السوشيال ميديا</p>
+    <header class="nt-top-section">
+        <div class="nt-avatar-glow">
+            <img src="IMG-20251223-WA0001.jpg" alt="عبد الناصر طلعت">
+        </div>
+        <h1 class="nt-main-title">ABDELNASEER SMM</h1>
+        <p class="nt-sub-title">PRO SERVICES DASHBOARD</p>
+        <span class="nt-tagline">a style-color.SERVICES DASHBOARD</span>
     </header>
 
-    <main class="nt-grid">
-        <div class="nt-card insta">
-            <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" class="nt-icon" alt="IG">
-            <h3>تزويد انستجرام</h3>
-            <ul class="nt-details">
-                <li>متابعين حقيقيين (سيرفر 1)</li>
-                <li>لايكات وتفاعل فوري</li>
-                <li>ضمان عدم النقصان 30 يوم</li>
-            </ul>
-            <span class="nt-price">60 ج.م</span>
-            <a href="https://wa.me/201XXXXXXXXX" class="nt-btn btn-insta">شراء الخدمة</a>
+    <div class="nt-section-label">NT-SERVICES-MATRIX</div>
+
+    <main class="nt-services-grid">
+        
+        <div class="nt-item-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" class="nt-app-logo" alt="Instagram">
+            <h3>Instagram</h3>
+            <p>متابعين ولايكات وريلز انستجرام</p>
+            <div class="nt-price-capsule">60 <span>ج.م</span></div>
+            <a href="https://wa.me/201098227150" class="nt-cta-btn insta-theme">اطلب الآن</a>
         </div>
 
-        <div class="nt-card tiktok">
-            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="nt-icon" alt="TT">
-            <h3>تزويد تيك توك</h3>
-            <ul class="nt-details">
-                <li>1000 متابع لفتح البث</li>
-                <li>زيادة إكسبلور ولايكات</li>
-                <li>ثبات عالي جداً</li>
-            </ul>
-            <span class="nt-price">70 ج.م</span>
-            <a href="https://wa.me/201XXXXXXXXX" class="nt-btn btn-tiktok">شراء الخدمة</a>
+        <div class="nt-item-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="nt-app-logo" alt="TikTok">
+            <h3>TikTok</h3>
+            <p>متابعين ومشاهدات تيك توك</p>
+            <div class="nt-price-capsule">70 <span>ج.م</span></div>
+            <a href="https://wa.me/201098227150" class="nt-cta-btn tiktok-theme">اطلب الآن</a>
         </div>
 
-        <div class="nt-card fb">
-            <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" class="nt-icon" alt="FB">
-            <h3>تزويد فيسبوك</h3>
-            <ul class="nt-details">
-                <li>متابعين حسابات وصفحات</li>
-                <li>لايكات ريأكشن حقيقية</li>
-                <li>خدمات ساعات المشاهدة</li>
-            </ul>
-            <span class="nt-price">70 ج.م</span>
-            <a href="https://wa.me/201XXXXXXXXX" class="nt-btn btn-fb">شراء الخدمة</a>
+        <div class="nt-item-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" class="nt-app-logo" alt="Facebook">
+            <h3>Facebook</h3>
+            <p>متابعين ولايكات فيسبوك</p>
+            <div class="nt-price-capsule">70 <span>ج.م</span></div>
+            <a href="https://wa.me/201098227150" class="nt-cta-btn fb-theme">اطلب الآن</a>
         </div>
+
     </main>
 
     <footer>
-        COPYRIGHT &copy; 2025 | DEVELOPED BY ABDELNASEER TALAT (NT-PRO)
+        <span class="footer-brand">AUTHOR: ABDELNASEER TALAT (NT-PRO)</span>
+        <span class="footer-copy">copyright: < x-0.44</span>
     </footer>
 
 </body>
