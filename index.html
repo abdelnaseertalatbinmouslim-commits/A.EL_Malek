@@ -1,78 +1,84 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl" class="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة د. علي سعد | DR. ALI SAAD</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = { darkMode: 'class' }
-        function toggleMode() { document.documentElement.classList.toggle('dark'); }
-    </script>
-    <style>
-        body { font-family: 'Cairo', sans-serif; transition: background 0.5s ease; }
-        .glass-card { @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8; }
-        .dark .glass-card { @apply bg-slate-900/50 border-slate-700/50; }
-    </style>
-</head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white">
+<div id="app-router">
+    
+    <section id="courses-page" class="hidden p-6">
+        <h2 class="text-2xl font-black mb-6 border-b-2 border-blue-600 pb-2">مرحباً بك في أكاديمية د. علي سعد</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="glass-card group overflow-hidden">
+                <div class="h-40 bg-slate-800 rounded-t-2xl flex items-center justify-center text-5xl">🏊</div>
+                <div class="p-4">
+                    <h3 class="font-bold text-xl">دورة السباحة (نظري + عملي)</h3>
+                    <button class="w-full mt-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition">مشاهدة المحتوى</button>
+                </div>
+            </div>
+            </div>
+    </section>
 
-    <div class="fixed top-6 left-6 z-50 flex gap-4">
-        <button onclick="toggleMode()" class="p-3 glass-card rounded-full">🌓</button>
-        <a href="login.html" class="bg-blue-600 px-6 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition">دخول</a>
-    </div>
-
-    <header class="min-h-screen flex flex-col items-center justify-center p-6">
-        <div class="relative group">
-            <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
-            <img src="IMG-20260408-WA0090.jpg" class="relative w-48 h-48 rounded-full border-4 border-white dark:border-slate-800 object-cover shadow-2xl">
+    <section id="admin-panel" class="hidden p-8 bg-slate-900 min-h-screen">
+        <div class="flex justify-between items-center mb-10">
+            <h1 class="text-3xl font-black text-red-500 underline">لوحة التحكم الكاملة | Eng. Abdel Nasser</h1>
+            <button onclick="logout()" class="bg-red-600 px-4 py-2 rounded-lg">تسجيل الخروج</button>
         </div>
-        <h1 class="mt-8 text-4xl md:text-6xl font-black text-center leading-tight">
-            د. علي سعد أبو ضيف<br>
-            <span class="text-blue-500 text-2xl md:text-3xl uppercase tracking-tighter">DR. ALI SAAD ABOU DEIF</span>
-        </h1>
-        <p class="mt-4 text-gray-500 dark:text-gray-400 font-bold max-w-xl text-center">
-            مدرس مساعد بكلية علوم الرياضة | المدير الفني لبرنامج البطل الذهبي | مدرب إنقاذ دولي معتمد
-        </p>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-6 space-y-24 pb-20">
         
-        <section id="education" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass-card text-center hover:border-blue-500 transition">
-                <div class="text-4xl mb-4">🏊‍♂️</div>
-                <h3 class="text-2xl font-black">تعليم السباحة</h3>
-                <p class="text-sm opacity-60">فيديوهات نظري وعملي شاملة</p>
+        <div class="grid lg:grid-cols-4 gap-6">
+            <div class="p-4 bg-slate-800 rounded-xl border-r-4 border-green-500">
+                <p class="text-gray-400">إجمالي الطلاب</p>
+                <span class="text-3xl font-bold">120</span>
             </div>
-            <div class="glass-card text-center hover:border-blue-500 transition">
-                <div class="text-4xl mb-4">🛟</div>
-                <h3 class="text-2xl font-black">الإنقاذ الدولي</h3>
-                <p class="text-sm opacity-60">تأهيل لرخص الـ ILS</p>
+            <button class="p-4 bg-blue-900 rounded-xl border-2 border-dashed border-blue-400 hover:bg-blue-800">
+                ➕ رفع محاضرة جديدة
+            </button>
+        </div>
+
+        <div class="mt-12 overflow-x-auto">
+            <table class="w-full text-right bg-slate-800 rounded-2xl">
+                <thead class="bg-slate-700">
+                    <tr>
+                        <th class="p-4">اسم الطالب</th>
+                        <th class="p-4">رقم البطاقة</th>
+                        <th class="p-4">الفرقة</th>
+                        <th class="p-4">الحالة</th>
+                        <th class="p-4">إجراء</th>
+                    </tr>
+                </thead>
+                <tbody id="students-list">
+                    <tr class="border-b border-slate-700">
+                        <td class="p-4">أحمد محمد علي</td>
+                        <td class="p-4">2990101xxxxxx</td>
+                        <td class="p-4">الثالثة</td>
+                        <td class="p-4 text-green-400">نشط</td>
+                        <td class="p-4"><button class="text-red-500">حظر</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="settings-page" class="hidden p-10">
+        <h2 class="text-3xl font-black mb-8">إعدادات المنصة</h2>
+        <div class="max-w-2xl space-y-6">
+            <div class="flex justify-between p-4 glass-card">
+                <span>تغيير صورة الدكتور علي</span>
+                <input type="file" class="text-sm">
             </div>
-            <div class="glass-card text-center hover:border-blue-500 transition">
-                <div class="text-4xl mb-4">👨‍🏫</div>
-                <h3 class="text-2xl font-black">إعداد معلم</h3>
-                <p class="text-sm opacity-60">تأهيل الكوادر الرياضية</p>
+            <div class="flex justify-between p-4 glass-card">
+                <span>تحديث الـ CV (بوربوينت)</span>
+                <input type="file" class="text-sm">
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="space-y-8">
-            <h2 class="text-3xl font-black border-r-8 border-blue-600 pr-4">خدماتنا التدريبية</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-blue-600 p-6 rounded-2xl text-white font-bold shadow-xl">كورس الإنقاذ</div>
-                <div class="bg-slate-800 p-6 rounded-2xl text-white font-bold shadow-xl">إعداد معلم سباحة</div>
-                <div class="bg-blue-800 p-6 rounded-2xl text-white font-bold shadow-xl">البطل الذهبي</div>
-                <div class="bg-slate-700 p-6 rounded-2xl text-white font-bold shadow-xl">توثيق الموسم</div>
-            </div>
-        </section>
+</div>
 
-    </main>
+<script>
+    // نظام التوجيه (Routing Logic) - Eng. Abdel Nasser Exclusive
+    function navigateTo(pageId) {
+        document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+        document.getElementById(pageId).classList.remove('hidden');
+    }
 
-    <footer class="py-10 border-t border-slate-200 dark:border-slate-800 text-center">
-        <p class="text-xs uppercase tracking-[0.5em] text-gray-500">Secured & Developed By</p>
-        <h4 class="text-blue-600 font-black text-2xl italic mt-2">Eng. Abdel Nasser | Abdelnaseer Pro</h4>
-    </footer>
-
-</body>
-</html>
+    // مثال: عند نجاح الدخول كآدمن
+    function loginAsAdmin() {
+        // يتم هنا فحص الباسورد المشفر
+        navigateTo('admin-panel');
+    }
+</script>
