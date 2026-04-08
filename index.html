@@ -1,38 +1,77 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة د. علي سعد أبو ضيف | الإنقاذ والسباحة</title>
+    <title>منصة د. علي سعد | DR. ALI SAAD</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = { darkMode: 'class' }
+        function toggleMode() { document.documentElement.classList.toggle('dark'); }
+    </script>
     <style>
-        body { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
-        .hero-bg { background: linear-gradient(rgba(0,20,50,0.7), rgba(0,20,50,0.7)), url('hero-image.jpg'); background-size: cover; }
+        body { font-family: 'Cairo', sans-serif; transition: background 0.5s ease; }
+        .glass-card { @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8; }
+        .dark .glass-card { @apply bg-slate-900/50 border-slate-700/50; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white">
 
-    <nav class="bg-blue-900 text-white p-4 sticky top-0 z-50 shadow-2xl flex justify-between items-center">
-        <div class="text-xl font-black">DR. ALI SAAD</div>
-        <div class="space-x-reverse space-x-6">
-            <a href="#about" class="hover:text-blue-300">عن الدكتور</a>
-            <a href="#courses" class="hover:text-blue-300">الكورسات</a>
-            <a href="/admin/login" class="bg-blue-600 px-4 py-2 rounded-lg font-bold">لوحة التحكم</a>
-        </div>
-    </nav>
+    <div class="fixed top-6 left-6 z-50 flex gap-4">
+        <button onclick="toggleMode()" class="p-3 glass-card rounded-full">🌓</button>
+        <a href="login.html" class="bg-blue-600 px-6 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition">دخول</a>
+    </div>
 
-    <header class="h-[70vh] hero-bg flex items-center justify-center text-center text-white">
-        <div>
-            <h1 class="text-5xl font-black mb-4 uppercase">د. علي سعد أبو ضيف</h1>
-            <p class="text-xl opacity-90">مدرب معتمد ورخص دولية في الغوص والإنقاذ</p>
+    <header class="min-h-screen flex flex-col items-center justify-center p-6">
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000"></div>
+            <img src="IMG-20260408-WA0090.jpg" class="relative w-48 h-48 rounded-full border-4 border-white dark:border-slate-800 object-cover shadow-2xl">
         </div>
+        <h1 class="mt-8 text-4xl md:text-6xl font-black text-center leading-tight">
+            د. علي سعد أبو ضيف<br>
+            <span class="text-blue-500 text-2xl md:text-3xl uppercase tracking-tighter">DR. ALI SAAD ABOU DEIF</span>
+        </h1>
+        <p class="mt-4 text-gray-500 dark:text-gray-400 font-bold max-w-xl text-center">
+            مدرس مساعد بكلية علوم الرياضة | المدير الفني لبرنامج البطل الذهبي | مدرب إنقاذ دولي معتمد
+        </p>
     </header>
 
-    <footer class="bg-gray-900 text-white py-10 text-center border-t-4 border-blue-600">
-        <p class="text-sm tracking-widest text-gray-400 mb-2 uppercase font-bold">System Architecture & Code</p>
-        <h3 class="text-2xl font-black text-blue-500 italic">Developed by Eng. Abdel Nasser</h3>
-        <p class="mt-4 text-xs opacity-50 text-white italic">Abdelnaseer Pro &copy; 2026</p>
+    <main class="max-w-7xl mx-auto px-6 space-y-24 pb-20">
+        
+        <section id="education" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card text-center hover:border-blue-500 transition">
+                <div class="text-4xl mb-4">🏊‍♂️</div>
+                <h3 class="text-2xl font-black">تعليم السباحة</h3>
+                <p class="text-sm opacity-60">فيديوهات نظري وعملي شاملة</p>
+            </div>
+            <div class="glass-card text-center hover:border-blue-500 transition">
+                <div class="text-4xl mb-4">🛟</div>
+                <h3 class="text-2xl font-black">الإنقاذ الدولي</h3>
+                <p class="text-sm opacity-60">تأهيل لرخص الـ ILS</p>
+            </div>
+            <div class="glass-card text-center hover:border-blue-500 transition">
+                <div class="text-4xl mb-4">👨‍🏫</div>
+                <h3 class="text-2xl font-black">إعداد معلم</h3>
+                <p class="text-sm opacity-60">تأهيل الكوادر الرياضية</p>
+            </div>
+        </section>
+
+        <section class="space-y-8">
+            <h2 class="text-3xl font-black border-r-8 border-blue-600 pr-4">خدماتنا التدريبية</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-blue-600 p-6 rounded-2xl text-white font-bold shadow-xl">كورس الإنقاذ</div>
+                <div class="bg-slate-800 p-6 rounded-2xl text-white font-bold shadow-xl">إعداد معلم سباحة</div>
+                <div class="bg-blue-800 p-6 rounded-2xl text-white font-bold shadow-xl">البطل الذهبي</div>
+                <div class="bg-slate-700 p-6 rounded-2xl text-white font-bold shadow-xl">توثيق الموسم</div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-10 border-t border-slate-200 dark:border-slate-800 text-center">
+        <p class="text-xs uppercase tracking-[0.5em] text-gray-500">Secured & Developed By</p>
+        <h4 class="text-blue-600 font-black text-2xl italic mt-2">Eng. Abdel Nasser | Abdelnaseer Pro</h4>
     </footer>
 
 </body>
