@@ -6,136 +6,205 @@
     <title>International Platform | Dr. Ali Saad</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
     <style>
-        /* إضافة لمسة احترافية للغة الإنجليزية في العناوين */
-        .en-title { font-family: 'sans-serif'; letter-spacing: 1px; }
+        /* تعريف الألوان والمتغيرات (CSS Variables) */
+        :root {
+            /* وضع النهار (ليلي افتراضياً) - يتم تغييره بواسطة JS */
+            --bg-body: #020617; /* سواد ليلي */
+            --text-main: #ffffff; /* أبيض */
+            --glass-bg: rgba(255, 255, 255, 0.03); /* زجاج خفيف جداً */
+            --glass-border: rgba(255, 255, 255, 0.08); /* حدود زجاجية */
+            --blur-light: 120px;
+            --blob-blue: rgba(59, 130, 246, 0.15);
+            --blob-purple: rgba(147, 51, 234, 0.1);
+            --primary: #3b82f6;
+            --primary-hover: #1d4ed8;
+        }
+
+        /* تنسيقات الوضع النهاري (Light Mode) */
+        .light-mode {
+            --bg-body: #f8fafc; /* رمادي فاتح جداً */
+            --text-main: #020617; /* أسود */
+            --glass-bg: rgba(255, 255, 255, 0.7); /* زجاج أبيض كثيف */
+            --glass-border: rgba(2, 6, 23, 0.05); /* حدود داكنة خفيفة */
+            --blur-light: 80px;
+            --blob-blue: rgba(59, 130, 246, 0.1);
+            --blob-purple: rgba(147, 51, 234, 0.05);
+            --primary: #2563eb;
+            --primary-hover: #1e40af;
+        }
+
+        /* الإعدادات الأساسية */
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* الخلفية الديناميكية (الإضاءة) */
+        .bg-blob { position: fixed; border-radius: 50%; filter: blur(var(--blur-light)); z-index: -1; transition: filter 0.3s ease; }
+        .blob-1 { width: 300px; height: 300px; background-color: var(--blob-blue); top: -100px; left: -100px; }
+        .blob-2 { width: 250px; height: 250px; background-color: var(--blob-purple); bottom: -80px; right: -80px; }
+
+        /* ستايل الزجاج الاحترافي والكروت (Glassmorphism) */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* كارت تفاعلي يرتفع عند التأشير */
+        .glass-card-interactive:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.15);
+        }
+
+        /* شكل عناصر الإدخال (Inputs) */
+        .input-glass {
+            width: 100%; padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            color: var(--text-main);
+            font-family: 'Cairo', sans-serif;
+            transition: var(--ease-standard);
+        }
+        .input-glass:focus { outline: none; border-color: var(--primary); background: rgba(59, 130, 246, 0.1); }
+        .light-mode .input-glass { background: rgba(2, 6, 23, 0.03); border-color: rgba(2, 6, 23, 0.1); }
+
+        /* شكل الأزرار (Buttons) */
+        .btn-shiny {
+            background: linear-gradient(45deg, #1d4ed8, #3b82f6);
+            color: #white !important;
+            border-radius: 16px; font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        .btn-shiny:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); }
+
+        /* زر التنقل بين الأوضاع (Light/Dark) */
+        .theme-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 100;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 10px 15px; border-radius: 30px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .theme-toggle:hover { border-color: var(--primary); }
+
+        /* تبويبات التسجيل (Tabs) */
+        .tab-btn { color: #94a3b8; border-bottom: 2px solid transparent; padding-bottom: 10px; font-weight: 700; }
+        .tab-btn.active { color: var(--primary); border-color: var(--primary); }
+        .light-mode .tab-btn { color: #64748b; }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     <div class="bg-blob blob-1"></div>
     <div class="bg-blob blob-2"></div>
 
+    <button onclick="toggleTheme()" class="theme-toggle">
+        <span id="theme-icon" class="text-xl">🌙</span> </button>
+
     <div class="container max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10">
         
         <div id="cv-section" class="space-y-6 text-right p-4">
             <div class="flex flex-col items-start lg:items-end">
-                <img src="IMG-20260408-WA0090.jpg" class="w-24 h-24 md:w-32 md:h-32 rounded-3xl border-2 border-blue-500 shadow-2xl object-cover mb-4">
-                <h1 class="text-3xl md:text-5xl font-black en-title text-white uppercase">Dr. Ali Saad</h1>
-                <h2 class="text-blue-500 font-bold text-lg md:text-xl mt-2">INTERNATIONAL PLATFORM</h2>
+                <img src="https://i.ibb.co/VvzK2Dq/IMG-20260408-WA0090.jpg" class="w-24 h-24 md:w-32 md:h-32 rounded-3xl border-2 border-blue-500 shadow-2xl object-cover mb-4">
+                <h1 class="text-3xl md:text-5xl font-black en-title uppercase text-[var(--text-main)]">Dr. Ali Saad</h1>
+                <h2 class="text-blue-500 font-bold text-lg md:text-xl mt-2 en-title">INTERNATIONAL PLATFORM</h2>
             </div>
 
-            <div class="glass-panel p-6 space-y-4 border-r-4 border-blue-600">
+            <div class="glass-panel p-6 space-y-4 border-r-4 border-blue-600 glass-card-interactive">
                 <div class="flex items-start gap-3">
                     <span class="text-blue-500 mt-1">✦</span>
-                    <p class="text-sm md:text-base font-bold text-slate-100">مدرس مساعد بكلية علوم الرياضة - تخصص سباحة</p>
+                    <p class="text-sm md:text-base font-bold text-[var(--text-main)]">مدرس مساعد بكلية علوم الرياضة - تخصص سباحة</p>
                 </div>
                 <div class="flex items-start gap-3">
                     <span class="text-blue-500 mt-1">✦</span>
-                    <p class="text-sm md:text-base font-bold text-slate-100">المدير الفني لبرنامج "البطل الذهبي" لتعليم السباحة بأسيوط</p>
+                    <p class="text-sm md:text-base font-bold text-[var(--text-main)]">المدير الفني لبرنامج "البطل الذهبي" لتعليم السباحة بأسيوط</p>
                 </div>
                 <div class="flex items-start gap-3">
                     <span class="text-blue-500 mt-1">✦</span>
-                    <p class="text-sm md:text-base font-bold text-slate-100">مدرب إنقاذ دولي معتمد من الاتحاد المصري والدولي للغوص والإنقاذ (ILD)</p>
+                    <p class="text-sm md:text-base font-bold text-[var(--text-main)]">مدرب إنقاذ دولي معتمد من الاتحاد المصري والدولي للغوص والإنقاذ (ILD)</p>
                 </div>
             </div>
             
             <div class="flex gap-4 opacity-70">
-                <div class="text-[10px] font-bold border border-white/20 px-3 py-1 rounded-full uppercase">Swimming Expert</div>
-                <div class="text-[10px] font-bold border border-white/20 px-3 py-1 rounded-full uppercase">International Trainer</div>
+                <div class="text-[10px] font-bold border border-[var(--glass-border)] px-3 py-1 rounded-full uppercase text-[var(--text-main)]">Swimming Expert</div>
+                <div class="text-[10px] font-bold border border-[var(--glass-border)] px-3 py-1 rounded-full uppercase text-[var(--text-main)]">International Trainer</div>
             </div>
         </div>
 
         <div class="glass-panel p-6 md:p-10 w-full">
-            <div class="tab-nav flex justify-center lg:justify-start gap-8">
+            <div class="flex justify-center lg:justify-start gap-8 border-b border-[var(--glass-border)] mb-8">
                 <button onclick="switchTab('login')" id="login-tab" class="tab-btn active text-lg">دخول</button>
                 <button onclick="switchTab('register')" id="register-tab" class="tab-btn text-lg">طالب جديد</button>
             </div>
 
-            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+            <form id="login-form" class="space-y-4">
                 <div class="input-group">
-                    <label class="input-label">البريد الإلكتروني</label>
+                    <label class="block text-sm text-[var(--text-main)] mb-2">البريد الإلكتروني</label>
                     <input type="email" id="l-email" placeholder="example@gmail.com" class="input-glass" required>
                 </div>
                 <div class="input-group">
-                    <label class="input-label">كلمة المرور</label>
+                    <label class="block text-sm text-[var(--text-main)] mb-2">كلمة المرور</label>
                     <input type="password" id="l-pass" placeholder="••••••••" class="input-glass" required>
                 </div>
-                <button type="submit" class="btn-primary w-full py-4 text-lg">LOGIN TO PLATFORM</button>
+                <button type="submit" class="btn-shiny w-full py-4 text-lg">LOGIN TO PLATFORM</button>
             </form>
 
-            <form id="register-form" class="hidden space-y-3" onsubmit="handleRegister(event)">
-                <input type="text" id="r-name" placeholder="الاسم الرباعي" class="input-glass" required>
+            <form id="register-form" class="hidden space-y-3">
+                <input type="text" placeholder="الاسم الرباعي" class="input-glass" required>
                 <div class="grid grid-cols-2 gap-2">
-                    <input type="tel" id="r-phone" placeholder="رقم الهاتف" class="input-glass" required>
-                    <input type="text" id="r-id" placeholder="الرقم القومي" class="input-glass" required>
+                    <input type="tel" placeholder="رقم الهاتف" class="input-glass" required>
+                    <input type="text" placeholder="الرقم القومي" class="input-glass" required>
                 </div>
-                <input type="email" id="r-email" placeholder="البريد الإلكتروني" class="input-glass" required>
-                <input type="password" id="r-pass" placeholder="كلمة المرور" class="input-glass" required>
-                <button type="submit" class="btn-primary w-full py-4">REQUEST REGISTRATION</button>
+                <input type="email" placeholder="البريد الإلكتروني" class="input-glass" required>
+                <input type="password" placeholder="كلمة المرور" class="input-glass" required>
+                <button type="submit" class="btn-shiny w-full py-4">REQUEST REGISTRATION</button>
             </form>
             
             <p id="msg" class="text-center text-xs mt-4 font-bold text-blue-400"></p>
         </div>
     </div>
 
-    <footer class="fixed bottom-4 text-center w-full pointer-events-none">
-        <p class="text-[9px] md:text-[11px] font-bold tracking-[0.3em] opacity-30 uppercase">
+    <footer class="fixed bottom-4 text-center w-full pointer-events-none opacity-30">
+        <p class="text-[9px] md:text-[11px] font-bold tracking-[0.3em] uppercase text-[var(--text-main)]">
             Developed by Eng. Abdel Nasser
         </p>
     </footer>
 
     <script>
-        const ADMIN_EMAIL = "doctor.ali.saad@gmail.com";
-        const ADMIN_PASS = "Dr.AliSaad111222#";
+        // 1. نظام تبديل الوضع (ليلي/نهاري)
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                icon.innerText = '☀️'; // أيقونة الشمس للوضع النهاري
+            } else {
+                icon.innerText = '🌙'; // أيقونة الهلال للوضع الليلي
+            }
+        }
 
+        // 2. نظام التبديل بين التبويبات (Tabs)
         function switchTab(t) {
             document.getElementById('login-form').classList.toggle('hidden', t === 'register');
             document.getElementById('register-form').classList.toggle('hidden', t === 'login');
-            document.getElementById('login-tab').className = t === 'login' ? 'tab-btn active' : 'tab-btn';
-            document.getElementById('register-tab').className = t === 'register' ? 'tab-btn active' : 'tab-btn';
-        }
-
-        function handleRegister(e) {
-            e.preventDefault();
-            const student = {
-                name: document.getElementById('r-name').value,
-                phone: document.getElementById('r-phone').value,
-                id: document.getElementById('r-id').value,
-                email: document.getElementById('r-email').value,
-                pass: document.getElementById('r-pass').value,
-                status: 'pending'
-            };
-            let students = JSON.parse(localStorage.getItem('students')) || [];
-            students.push(student);
-            localStorage.setItem('students', JSON.stringify(students));
-            document.getElementById('msg').innerText = "تم إرسال طلبك. سيقوم الدكتور بمراجعته والموافقة عليه قريباً.";
-            e.target.reset();
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('l-email').value;
-            const pass = document.getElementById('l-pass').value;
-
-            if(email === ADMIN_EMAIL && pass === ADMIN_PASS) {
-                location.href = 'admin.html';
-                return;
-            }
-
-            let students = JSON.parse(localStorage.getItem('students')) || [];
-            const user = students.find(s => s.email === email && s.pass === pass);
-            
-            if(user) {
-                if(user.status === 'active') {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    location.href = 'student.html';
-                } else {
-                    alert("عذراً، حسابك قيد المراجعة لدى الإدارة.");
-                }
-            } else {
-                alert("البريد الإلكتروني أو كلمة المرور غير صحيحة.");
-            }
+            document.getElementById('login-tab').className = t === 'login' ? 'tab-btn active text-lg' : 'tab-btn text-lg';
+            document.getElementById('register-tab').className = t === 'register' ? 'tab-btn active text-lg' : 'tab-btn text-lg';
         }
     </script>
 </body>
