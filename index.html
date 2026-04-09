@@ -4,38 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>International Platform | Dr. Ali Saad</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+
     <style>
-        :root { --bg: #020617; --txt: #ffffff; --glass: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); }
-        .light { --bg: #f8fafc; --txt: #020617; --glass: rgba(255,255,255,0.7); --border: rgba(0,0,0,0.05); }
-        body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--txt); transition: 0.3s; overflow-x: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-        .glass { background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid var(--border); border-radius: 24px; }
-        .btn-primary { background: linear-gradient(45deg, #1d4ed8, #3b82f6); color: white; padding: 14px; border-radius: 12px; font-weight: 900; width: 100%; transition: 0.3s; cursor: pointer; border:none; }
-        .input-glass { width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: var(--txt); outline: none; }
-        .bg-blob { position: fixed; width: 300px; height: 300px; filter: blur(120px); z-index: -1; opacity: 0.4; border-radius: 50%; }
-        .tab-btn { padding: 10px 20px; font-weight: 700; color: #64748b; border-bottom: 2px solid transparent; cursor: pointer; transition: 0.3s; }
+        :root { 
+            --bg: #020617; 
+            --txt: #ffffff; 
+            --glass: rgba(255,255,255,0.03); 
+            --border: rgba(255,255,255,0.1); 
+        }
+        .light { 
+            --bg: #f8fafc; 
+            --txt: #020617; 
+            --glass: rgba(255,255,255,0.7); 
+            --border: rgba(0,0,0,0.05); 
+        }
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background: var(--bg); 
+            color: var(--txt); 
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            overflow-x: hidden; 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .glass { 
+            background: var(--glass); 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px); 
+            border: 1px solid var(--border); 
+            border-radius: 24px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .btn-primary { 
+            background: linear-gradient(45deg, #1d4ed8, #3b82f6); 
+            color: white; 
+            padding: 14px; 
+            border-radius: 12px; 
+            font-weight: 900; 
+            width: 100%; 
+            transition: 0.3s; 
+            cursor: pointer; 
+            border: none;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(59, 130, 246, 0.5); }
+        .input-glass { 
+            width: 100%; 
+            padding: 12px; 
+            background: rgba(255,255,255,0.05); 
+            border: 1px solid var(--border); 
+            border-radius: 12px; 
+            color: var(--txt); 
+            outline: none; 
+            transition: 0.3s;
+        }
+        .input-glass:focus { border-color: #3b82f6; background: rgba(59, 130, 246, 0.05); }
+        .bg-blob { 
+            position: fixed; 
+            width: 400px; 
+            height: 400px; 
+            filter: blur(120px); 
+            z-index: -1; 
+            opacity: 0.4; 
+            border-radius: 50%; 
+        }
+        .tab-btn { 
+            padding: 10px 20px; 
+            font-weight: 700; 
+            color: #64748b; 
+            border-bottom: 2px solid transparent; 
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
         .tab-btn.active { color: #3b82f6; border-color: #3b82f6; }
     </style>
 </head>
 <body>
-    <div class="bg-blob bg-blue-600 top-0 left-0"></div>
-    <div class="bg-blob bg-purple-600 bottom-0 right-0"></div>
+    <div class="bg-blob bg-blue-600 top-[-100px] left-[-100px]"></div>
+    <div class="bg-blob bg-purple-600 bottom-[-100px] right-[-100px]"></div>
     
     <button onclick="document.body.classList.toggle('light')" class="fixed top-5 right-5 glass p-3 rounded-full z-50">🌓</button>
 
     <div class="container max-w-5xl px-4 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center relative">
+        
         <div class="text-right space-y-6">
             <div class="relative inline-block">
                 <img src="IMG-20260408-WA0090.jpg" alt="Dr. Ali Saad" class="w-32 h-32 rounded-3xl border-2 border-blue-500 object-cover shadow-2xl">
                 <div class="absolute -bottom-2 -right-2 bg-blue-600 text-[10px] px-2 py-1 rounded-lg font-bold">OFFICIAL</div>
             </div>
-            <h1 class="text-4xl font-black uppercase tracking-tight">Dr. Ali Saad</h1>
+            <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">Dr. Ali Saad</h1>
             <h2 class="text-blue-500 font-bold tracking-[0.2em] text-sm">INTERNATIONAL PLATFORM</h2>
-            <div class="glass p-5 space-y-4 border-r-4 border-blue-600">
-                <p class="text-xs md:text-sm font-bold opacity-90">✦ مدرس مساعد بكلية علوم الرياضة - تخصص سباحة</p>
-                <p class="text-xs md:text-sm font-bold opacity-90">✦ المدير الفني لبرنامج "البطل الذهبي" بأسيوط</p>
-                <p class="text-xs md:text-sm font-bold opacity-90">✦ مدرب إنقاذ دولي معتمد من الاتحاد المصري والدولي (ILD)</p>
+            <div class="glass p-6 space-y-4 border-r-4 border-blue-600">
+                <p class="text-xs md:text-sm font-bold opacity-90 leading-relaxed">✦ مدرس مساعد بكلية علوم الرياضة - تخصص سباحة</p>
+                <p class="text-xs md:text-sm font-bold opacity-90 leading-relaxed">✦ المدير الفني لبرنامج "البطل الذهبي" بأسيوط</p>
+                <p class="text-xs md:text-sm font-bold opacity-90 leading-relaxed">✦ مدرب إنقاذ دولي معتمد من الاتحاد المصري والدولي (ILD)</p>
             </div>
         </div>
 
@@ -47,11 +117,11 @@
 
             <form id="f-l" class="space-y-4" onsubmit="handleLogin(event)">
                 <div>
-                    <label class="block text-[10px] mb-2 opacity-50">البريد الإلكتروني</label>
+                    <label class="block text-[10px] mb-2 opacity-50 font-bold">البريد الإلكتروني</label>
                     <input type="email" id="le" placeholder="doctor.ali.saad@gmail.com" class="input-glass" required>
                 </div>
                 <div>
-                    <label class="block text-[10px] mb-2 opacity-50">كلمة المرور</label>
+                    <label class="block text-[10px] mb-2 opacity-50 font-bold">كلمة المرور</label>
                     <input type="password" id="lp" placeholder="••••••••" class="input-glass" required>
                 </div>
                 <button type="submit" class="btn-primary mt-4">LOGIN TO PLATFORM</button>
@@ -61,64 +131,111 @@
                 <input type="text" id="rn" placeholder="الاسم الرباعي" class="input-glass" required>
                 <input type="email" id="re" placeholder="البريد الإلكتروني" class="input-glass" required>
                 <input type="password" id="rp" placeholder="كلمة المرور" class="input-glass" required>
-                <button type="submit" class="btn-primary mt-4">إرسال طلب الانضمام</button>
+                <button type="submit" class="btn-primary mt-4 font-black">إرسال طلب الانضمام</button>
             </form>
-            <p id="msg" class="text-center text-xs mt-4 text-blue-400 font-bold"></p>
+            <p id="msg" class="text-center text-xs mt-6 text-blue-400 font-bold"></p>
         </div>
     </div>
 
+    <footer class="fixed bottom-4 text-center w-full pointer-events-none opacity-20">
+        <p class="text-[10px] font-bold tracking-[0.5em] uppercase">Developed by Eng. Abdel Nasser</p>
+    </footer>
+
     <script>
-        // بيانات الأدمن الثابتة
+        // --- إعدادات Firebase (CHANGE THIS) ---
+        const firebaseConfig = {
+            apiKey: "ضع_هنا_API_KEY_الخاص_بك",
+            databaseURL: "https://PROJECT_ID-default-rtdb.firebaseio.com",
+            projectId: "PROJECT_ID",
+        };
+
+        // --- إعدادات Telegram (CHANGE THIS) ---
+        const TELEGRAM_TOKEN = "8755029935:AAEnPoZ5rkom06YJ1Lpz4fs9RmhRCTCVZNA";
+        const MY_CHAT_ID = "ضع_هنا_الـ_CHAT_ID_بتاعك";
+
+        // تهيئة فايربيس
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // بيانات الأدمن
         const ADMIN_EMAIL = "doctor.ali.saad@gmail.com";
         const ADMIN_PASS = "Dr.AliSaad111222#";
 
+        // التبديل بين التبويبات
         function tab(t){
             document.getElementById('f-l').classList.toggle('hidden', t==='reg');
             document.getElementById('f-r').classList.toggle('hidden', t==='login');
             document.getElementById('l-t').className = t==='login'?'tab-btn active':'tab-btn';
             document.getElementById('r-t').className = t==='reg'?'tab-btn active':'tab-btn';
+            document.getElementById('msg').innerText = "";
         }
 
+        // إرسال تنبيه لتليجرام
+        function notifyTelegram(name, email) {
+            const text = `🔔 *طلب انضمام جديد للمنصة* \n\n👤 الاسم: ${name} \n📧 البريد: ${email} \n\n_برجاء مراجعة لوحة التحكم للقبول._`;
+            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${MY_CHAT_ID}&text=${encodeURIComponent(text)}&parse_mode=Markdown`;
+            fetch(url).catch(err => console.log("Telegram Notify Error"));
+        }
+
+        // عملية التسجيل
         function handleRegister(e){
             e.preventDefault();
-            let students = JSON.parse(localStorage.getItem('students')) || [];
+            const name = document.getElementById('rn').value;
+            const email = document.getElementById('re').value;
+            const pass = document.getElementById('rp').value;
+
             const newStudent = {
-                name: document.getElementById('rn').value,
-                email: document.getElementById('re').value,
-                pass: document.getElementById('rp').value,
-                status: 'pending'
+                name: name,
+                email: email,
+                pass: pass,
+                status: 'pending',
+                date: new Date().toISOString()
             };
-            students.push(newStudent);
-            localStorage.setItem('students', JSON.stringify(students));
-            document.getElementById('msg').innerText = "تم إرسال طلبك بنجاح! انتظر موافقة د. علي.";
-            e.target.reset();
+
+            db.ref('students').push(newStudent).then(() => {
+                notifyTelegram(name, email);
+                document.getElementById('msg').innerText = "تم إرسال طلبك بنجاح! بانتظار موافقة د. علي.";
+                e.target.reset();
+            }).catch(err => {
+                document.getElementById('msg').innerText = "خطأ في الاتصال بالسيرفر، حاول مرة أخرى.";
+            });
         }
 
+        // عملية الدخول
         function handleLogin(e){
             e.preventDefault();
             const email = document.getElementById('le').value;
             const pass = document.getElementById('lp').value;
 
-            // التأكد من الأدمن
+            // دخول الأدمن
             if(email === ADMIN_EMAIL && pass === ADMIN_PASS) {
                 window.location.href = 'admin.html';
                 return;
             }
 
-            // التأكد من الطلاب
-            let students = JSON.parse(localStorage.getItem('students')) || [];
-            let user = students.find(s => s.email === email && s.pass === pass);
-
-            if(user) {
-                if(user.status === 'active') {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    window.location.href = 'student.html';
-                } else {
-                    alert('عذراً، حسابك بانتظار تفعيل الدكتور.');
+            // دخول الطلاب من Firebase
+            db.ref('students').once('value', (snapshot) => {
+                const students = snapshot.val();
+                let user = null;
+                
+                for(let id in students) {
+                    if(students[id].email === email && students[id].pass === pass) {
+                        user = students[id];
+                        break;
+                    }
                 }
-            } else {
-                alert('البيانات غير صحيحة أو الحساب غير موجود.');
-            }
+
+                if(user) {
+                    if(user.status === 'active') {
+                        localStorage.setItem('currentUser', JSON.stringify(user));
+                        window.location.href = 'student.html';
+                    } else {
+                        alert('حسابك قيد المراجعة، سيتم تفعيله قريباً.');
+                    }
+                } else {
+                    alert('بيانات الدخول غير صحيحة.');
+                }
+            });
         }
     </script>
 </body>
