@@ -1,84 +1,220 @@
-<div id="app-router">
-    
-    <section id="courses-page" class="hidden p-6">
-        <h2 class="text-2xl font-black mb-6 border-b-2 border-blue-600 pb-2">مرحباً بك في أكاديمية د. علي سعد</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="glass-card group overflow-hidden">
-                <div class="h-40 bg-slate-800 rounded-t-2xl flex items-center justify-center text-5xl">🏊</div>
-                <div class="p-4">
-                    <h3 class="font-bold text-xl">دورة السباحة (نظري + عملي)</h3>
-                    <button class="w-full mt-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition">مشاهدة المحتوى</button>
-                </div>
-            </div>
-            </div>
-    </section>
-
-    <section id="admin-panel" class="hidden p-8 bg-slate-900 min-h-screen">
-        <div class="flex justify-between items-center mb-10">
-            <h1 class="text-3xl font-black text-red-500 underline">لوحة التحكم الكاملة | Eng. Abdel Nasser</h1>
-            <button onclick="logout()" class="bg-red-600 px-4 py-2 rounded-lg">تسجيل الخروج</button>
-        </div>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنصة الدولية | د. علي سعد</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; transition: background 0.5s ease; overflow: hidden; }
         
-        <div class="grid lg:grid-cols-4 gap-6">
-            <div class="p-4 bg-slate-800 rounded-xl border-r-4 border-green-500">
-                <p class="text-gray-400">إجمالي الطلاب</p>
-                <span class="text-3xl font-bold">120</span>
+        /* تأثير الزجاج المتطور (Ultra Glass) */
+        .ultra-glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* تصميم الكروت الاحترافي (Pro Cards) */
+        .pro-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .pro-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        /* أنيميشن زرار القائمة النشط */
+        .nav-link { position: relative; transition: color 0.3s ease; }
+        .nav-link.active { color: #3b82f6; font-weight: 900; }
+        .nav-link.active::after {
+            content: ''; position: absolute; right: -1.5rem; top: 50%; transform: translateY(-50%);
+            width: 6px; height: 25px; background: #3b82f6; border-radius: 3px;
+            animation: line-grow 0.3s ease-out;
+        }
+        @keyframes line-grow { from { height: 0; } to { height: 25px; } }
+
+        /* منطقة المحتوى القابلة للتمرير */
+        .content-scroll { height: calc(100vh - 120px); overflow-y: auto; padding-right: 10px; }
+        .content-scroll::-webkit-scrollbar { width: 6px; }
+        .content-scroll::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.2); border-radius: 3px; }
+
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100">
+
+    <div class="flex min-h-screen">
+        
+        <aside class="w-72 ultra-glass border-l border-white/5 p-8 flex flex-col z-50 relative">
+            
+            <div class="mb-12 text-center relative group">
+                <div class="w-24 h-24 rounded-full border-4 border-blue-600 mx-auto p-1 mb-4 shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-105">
+                    <img src="IMG-20260408-WA0090.jpg" alt="Dr. Ali Saad" class="rounded-full w-full h-full object-cover">
+                </div>
+                <h2 class="text-white font-black text-lg tracking-tight">د. علي سعد أبو ضيف</h2>
+                <p class="text-xs text-blue-400 font-bold mt-1">الأكاديمية الدولية للسباحة</p>
+                <div class="absolute top-0 right-1/2 translate-x-12 bg-blue-500 p-1 rounded-full text-white text-xs">✔</div>
             </div>
-            <button class="p-4 bg-blue-900 rounded-xl border-2 border-dashed border-blue-400 hover:bg-blue-800">
-                ➕ رفع محاضرة جديدة
-            </button>
-        </div>
 
-        <div class="mt-12 overflow-x-auto">
-            <table class="w-full text-right bg-slate-800 rounded-2xl">
-                <thead class="bg-slate-700">
-                    <tr>
-                        <th class="p-4">اسم الطالب</th>
-                        <th class="p-4">رقم البطاقة</th>
-                        <th class="p-4">الفرقة</th>
-                        <th class="p-4">الحالة</th>
-                        <th class="p-4">إجراء</th>
-                    </tr>
-                </thead>
-                <tbody id="students-list">
-                    <tr class="border-b border-slate-700">
-                        <td class="p-4">أحمد محمد علي</td>
-                        <td class="p-4">2990101xxxxxx</td>
-                        <td class="p-4">الثالثة</td>
-                        <td class="p-4 text-green-400">نشط</td>
-                        <td class="p-4"><button class="text-red-500">حظر</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+            <nav class="space-y-4 flex-1">
+                <button onclick="navigateTo('courses')" class="nav-link active w-full flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition">
+                    <span class="text-2xl">📚</span> <span class="font-bold">الكورسات التدريبية</span>
+                </button>
+                <button onclick="navigateTo('subscriptions')" class="nav-link w-full flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition">
+                    <span class="text-2xl">💳</span> <span class="font-bold">حالة الاشتراكات</span>
+                </button>
+                <button onclick="navigateTo('followup')" class="nav-link w-full flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition">
+                    <span class="text-2xl">📈</span> <span class="font-bold">تقارير المتابعة</span>
+                </button>
+                <button onclick="navigateTo('notes')" class="nav-link w-full flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition">
+                    <span class="text-2xl">📝</span> <span class="font-bold">ملاحظات الإدارة</span>
+                </button>
+            </nav>
 
-    <section id="settings-page" class="hidden p-10">
-        <h2 class="text-3xl font-black mb-8">إعدادات المنصة</h2>
-        <div class="max-w-2xl space-y-6">
-            <div class="flex justify-between p-4 glass-card">
-                <span>تغيير صورة الدكتور علي</span>
-                <input type="file" class="text-sm">
+            <div class="border-t border-white/5 pt-6 mt-6 space-y-3">
+                <button class="w-full flex items-center gap-3 text-slate-500 hover:text-white text-sm"><span>⚙️</span> الإعدادات</button>
+                <button class="w-full flex items-center gap-3 text-red-500 hover:text-red-400 text-sm font-bold"><span>🚪</span> تسجيل الخروج</button>
             </div>
-            <div class="flex justify-between p-4 glass-card">
-                <span>تحديث الـ CV (بوربوينت)</span>
-                <input type="file" class="text-sm">
+        </aside>
+
+        <main class="flex-1 p-12 relative overflow-hidden">
+            
+            <header class="flex justify-between items-center mb-10 pb-6 border-b border-white/5">
+                <h1 id="page-title" class="text-4xl font-black text-white">الأكاديمية التعليمية</h1>
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-slate-400">أهلاً، <strong class="text-white">عبد الناصر</strong></span>
+                    <div class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-blue-500">A</div>
+                </div>
+            </header>
+
+            <div id="content-container" class="content-scroll">
+                
+                <section id="page-courses" class="page-content space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="pro-card p-8 rounded-3xl relative overflow-hidden group">
+                            <div class="text-6xl mb-6 opacity-80 group-hover:scale-110 transition-transform">🏊‍♂️</div>
+                            <h3 class="text-2xl font-black text-white mb-3">دبلومة السباحة</h3>
+                            <p class="text-slate-400 text-sm mb-6">محتوى نظري شامل وفيديوهات عملي لأحدث طرق التدريب.</p>
+                            <button class="py-3 px-6 bg-blue-600 rounded-xl font-bold text-sm">دخول المحاضرات</button>
+                            <div class="absolute -bottom-10 -right-10 text-9xl opacity-5 group-hover:opacity-10 transition">🏊‍♂️</div>
+                        </div>
+                        <div class="pro-card p-8 rounded-3xl relative overflow-hidden group">
+                            <div class="text-6xl mb-6 opacity-80 group-hover:scale-110 transition-transform">🛟</div>
+                            <h3 class="text-2xl font-black text-white mb-3">كورس الإنقاذ</h3>
+                            <p class="text-slate-400 text-sm mb-6">تأهيل دولي معتمد للعمل كمنقذ شواطئ وحمامات سباحة.</p>
+                            <button class="py-3 px-6 bg-red-600 rounded-xl font-bold text-sm">دخول المحاضرات</button>
+                            <div class="absolute -bottom-10 -right-10 text-9xl opacity-5 group-hover:opacity-10 transition">🛟</div>
+                        </div>
+                        <div class="pro-card p-8 rounded-3xl relative overflow-hidden group">
+                            <div class="text-6xl mb-6 opacity-80 group-hover:scale-110 transition-transform">👨‍🏫</div>
+                            <h3 class="text-2xl font-black text-white mb-3">إعداد معلم سباحة</h3>
+                            <p class="text-slate-400 text-sm mb-6">تأهيل الكوادر الفنية للعمل الأكاديمي والتدريب الاحترافي.</p>
+                            <button class="py-3 px-6 bg-green-600 rounded-xl font-bold text-sm">دخول المحاضرات</button>
+                            <div class="absolute -bottom-10 -right-10 text-9xl opacity-5 group-hover:opacity-10 transition">👨‍🏫</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="page-subscriptions" class="page-content hidden space-y-8">
+                    <div class="pro-card p-10 rounded-3xl flex justify-between items-center border-r-4 border-yellow-500">
+                        <div>
+                            <p class="text-slate-400 text-sm mb-1">نوع الباقة الحالية</p>
+                            <h2 class="text-3xl font-black text-yellow-500 mb-2">البطل الذهبي (بريميوم)</h2>
+                            <p class="text-slate-500 text-xs">تاريخ التجديد: <strong class="text-white">01/07/2026</strong></p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-sm text-green-500 font-bold bg-green-500/10 px-4 py-1 rounded-full mb-3">نشط</div>
+                            <button class="py-2 px-5 bg-slate-800 rounded-lg text-xs font-bold border border-slate-700">تجديد الاشتراك</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="page-followup" class="page-content hidden space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="pro-card p-8 rounded-3xl text-center">
+                            <h4 class="font-bold text-slate-400 mb-4">تقييم الأداء الفني</h4>
+                            <div class="text-7xl font-black text-blue-500 py-6">9.2<span class="text-2xl text-slate-600">/10</span></div>
+                            <p class="text-xs text-slate-500 italic">"تميز في التكنيك العام، يحتاج لتركيز على الكتم"</p>
+                        </div>
+                        <div class="pro-card p-8 rounded-3xl text-center">
+                            <h4 class="font-bold text-slate-400 mb-4">نسبة الالتزام بالتدريب</h4>
+                            <div class="text-7xl font-black text-green-500 py-6">98<span class="text-2xl text-slate-600">%</span></div>
+                            <p class="text-xs text-slate-500 italic">"التزام ممتاز بالحضور والمواعيد"</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="page-notes" class="page-content hidden space-y-6">
+                    <div class="bg-slate-900/50 p-6 rounded-2xl border-r-4 border-blue-600 relative">
+                        <span class="absolute top-4 left-4 text-xs text-slate-600">08/04/2026</span>
+                        <p class="text-sm font-bold text-blue-400 mb-2">من: د. علي سعد</p>
+                        <p class="text-white text-sm leading-relaxed">يرجى مراجعة فيديوهات "النفس الجانبي" قبل المحاضرة العملية القادمة.</p>
+                    </div>
+                    <div class="bg-slate-900/50 p-6 rounded-2xl border-r-4 border-slate-700 relative">
+                        <span class="absolute top-4 left-4 text-xs text-slate-600">02/04/2026</span>
+                        <p class="text-sm font-bold text-slate-400 mb-2">من: الإدارة</p>
+                        <p class="text-white text-sm leading-relaxed">تم تفعيل حسابك بنجاح، أهلاً بك في الأكاديمية.</p>
+                    </div>
+                </section>
+
             </div>
-        </div>
-    </section>
 
-</div>
+        </main>
+    </div>
 
-<script>
-    // نظام التوجيه (Routing Logic) - Eng. Abdel Nasser Exclusive
-    function navigateTo(pageId) {
-        document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
-        document.getElementById(pageId).classList.remove('hidden');
-    }
+    <footer class="fixed bottom-4 left-4 z-[60]">
+        <p class="text-[9px] tracking-[0.3em] text-slate-700 font-bold uppercase mb-1">Developed By</p>
+        <h4 class="text-blue-950 font-black text-xs italic opacity-80">Eng. Abdel Nasser</h4>
+    </footer>
 
-    // مثال: عند نجاح الدخول كآدمن
-    function loginAsAdmin() {
-        // يتم هنا فحص الباسورد المشفر
-        navigateTo('admin-panel');
-    }
-</script>
+    <script>
+        // تعريف عناوين الصفحات
+        const pageTitles = {
+            'courses': 'الأكاديمية التعليمية',
+            'subscriptions': 'مركز الاشتراكات',
+            'followup': 'لوحة تحكم الأداء',
+            'notes': 'صندوق الوارد والملاحظات'
+        };
+
+        // وظيفة التنقل الذكية (SPA Navigation with GSAP)
+        function navigateTo(pageId) {
+            const container = document.getElementById('content-container');
+            const targetPage = document.getElementById('page-' + pageId);
+            const allPages = document.querySelectorAll('.page-content');
+            const allLinks = document.querySelectorAll('.nav-link');
+
+            // 1. تحديث شكل القائمة الجانبية (Active State)
+            allLinks.forEach(link => link.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // 2. أنيميشن خروج الصفحة الحالية
+            gsap.to('.page-content:not(.hidden)', {
+                duration: 0.3, opacity: 0, y: 20, onComplete: () => {
+                    // إخفاء كل الصفحات
+                    allPages.forEach(page => page.classList.add('hidden'));
+                    
+                    // إظهار الصفحة المطلوبة وتجهيزها للأنيميشن
+                    targetPage.classList.remove('hidden');
+                    gsap.set(targetPage, { opacity: 0, y: -20 });
+
+                    // تحديث عنوان الصفحة
+                    document.getElementById('page-title').innerText = pageTitles[pageId];
+
+                    // 3. أنيميشن دخول الصفحة الجديدة
+                    gsap.to(targetPage, { duration: 0.5, opacity: 1, y: 0, ease: "back.out(1.7)" });
+                }
+            });
+        }
+
+        // أنيميشن عند تحميل الصفحة لأول مرة
+        gsap.from("aside", { duration: 1, x: 100, opacity: 0, ease: "expo.out" });
+        gsap.from("main header", { duration: 1, y: -50, opacity: 0, delay: 0.3, ease: "expo.out" });
+        gsap.from("#page-courses .pro-card", { duration: 0.8, y: 50, opacity: 0, stagger: 0.2, delay: 0.5, ease: "back.out(1.7)" });
+    </script>
+</body>
+</html>
