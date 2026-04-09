@@ -3,84 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Control | Dr. Ali Saad</title>
+    <title>Admin Panel | Dr. Ali Saad</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background: #020617; color: white; min-height: 100vh; padding: 20px; }
+        .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; }
+        .input-glass { width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; margin-bottom: 10px; outline: none; }
+        .btn-action { padding: 5px 15px; border-radius: 8px; font-weight: bold; font-size: 12px; transition: 0.3s; }
+        .bg-blob { position: fixed; width: 400px; height: 400px; background: rgba(59, 130, 246, 0.1); filter: blur(100px); z-index: -1; border-radius: 50%; top: -100px; left: -100px; }
+    </style>
 </head>
-<body class="p-4 md:p-8">
-    <div class="bg-blob blob-1"></div>
+<body>
+    <div class="bg-blob"></div>
     
-    <header class="flex justify-between items-center mb-10 glass-panel p-5">
-        <h1 class="text-xl font-black">إدارة الأقسام والخدمات</h1>
-        <button onclick="location.href='index.html'" class="text-red-500 font-bold text-xs">خروج</button>
+    <header class="glass mb-8 flex justify-between items-center">
+        <div>
+            <h1 class="text-xl font-black text-blue-500">لوحة تحكم د. علي سعد</h1>
+            <p class="text-[10px] opacity-50">إدارة الطلاب والمحتوى التعليمي</p>
+        </div>
+        <button onclick="location.href='index.html'" class="bg-red-500/20 text-red-500 px-4 py-2 rounded-xl text-xs font-bold border border-red-500/30">تسجيل خروج</button>
     </header>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         <div class="lg:col-span-1 space-y-6">
-            <section class="glass-panel p-6">
-                <h3 class="text-blue-500 font-black mb-4">رفع درس (نظري/عملي)</h3>
-                <div class="space-y-3">
-                    <select id="course-type" class="input-glass">
-                        <option value="السباحة">قسم السباحة</option>
-                        <option value="إنقاذ">قسم الإنقاذ</option>
-                        <option value="إعداد معلم">قسم إعداد معلم</option>
-                    </select>
-                    <select id="study-mode" class="input-glass">
-                        <option value="عملي">فيديو عملي</option>
-                        <option value="نظري">شرح نظري</option>
-                    </select>
-                    <input type="text" id="v-title" placeholder="عنوان الدرس" class="input-glass">
-                    <input type="text" id="v-link" placeholder="رابط الفيديو" class="input-glass">
-                    <button onclick="addLesson()" class="btn-primary w-full">نشر المحتوى</button>
-                </div>
+            <section class="glass border-t-4 border-blue-600">
+                <h2 class="font-bold text-blue-400 mb-4 flex items-center gap-2"><span>📺</span> إضافة درس جديد</h2>
+                <select id="course-cat" class="input-glass"><option>السباحة</option><option>إنقاذ</option><option>إعداد معلم</option></select>
+                <select id="course-mode" class="input-glass"><option>عملي</option><option>نظري</option></select>
+                <input id="course-tit" placeholder="عنوان الفيديو" class="input-glass">
+                <input id="course-lnk" placeholder="رابط الفيديو (URL)" class="input-glass">
+                <button onclick="addContent()" class="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded-xl font-bold transition">نشر الآن</button>
             </section>
 
-            <section class="glass-panel p-6">
-                <h3 class="text-yellow-500 font-black mb-4">توثيق (دورات/صور مواسم)</h3>
-                <div class="space-y-3">
-                    <input type="text" id="doc-title" placeholder="اسم الدورة أو الموسم" class="input-glass">
-                    <input type="date" id="doc-date" class="input-glass">
-                    <input type="text" id="doc-img" placeholder="رابط الصورة" class="input-glass">
-                    <button onclick="addDoc()" class="btn-primary w-full bg-yellow-600">إضافة للتوثيق</button>
-                </div>
+            <section class="glass border-t-4 border-yellow-500">
+                <h2 class="font-bold text-yellow-500 mb-4 flex items-center gap-2"><span>📸</span> توثيق الموسم</h2>
+                <input id="doc-tit" placeholder="اسم الدورة / الموسم" class="input-glass">
+                <input id="doc-img" placeholder="رابط الصورة" class="input-glass">
+                <button onclick="addDoc()" class="w-full bg-yellow-600 hover:bg-yellow-700 p-3 rounded-xl font-bold transition">إضافة للتوثيق</button>
             </section>
         </div>
 
         <div class="lg:col-span-2">
-            <div class="glass-panel p-6 h-full">
-                <h3 class="font-black mb-6">طلبات الإلتحاق والمتابعة</h3>
-                <div id="admin-student-list" class="space-y-4">
-                    </div>
-            </div>
+            <section class="glass h-full border-t-4 border-green-600">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="font-black text-green-500">طلبات الالتحاق الجديدة</h2>
+                    <span id="st-count" class="bg-green-600 text-[10px] px-2 py-1 rounded-full font-bold">0</span>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-right">
+                        <thead class="text-xs opacity-50 border-b border-white/10">
+                            <tr>
+                                <th class="pb-3">الاسم</th>
+                                <th class="pb-3">الإيميل</th>
+                                <th class="pb-3">الحالة</th>
+                                <th class="pb-3 text-center">الإجراء</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-table-body">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
     </div>
 
     <script>
-        function addLesson() {
-            const lesson = {
-                type: document.getElementById('course-type').value,
-                mode: document.getElementById('study-mode').value,
-                title: document.getElementById('v-title').value,
-                link: document.getElementById('v-link').value
-            };
-            let data = JSON.parse(localStorage.getItem('lessons')) || [];
-            data.push(lesson);
-            localStorage.setItem('lessons', JSON.stringify(data));
-            alert("تم رفع الدرس التعليمي");
+        // دالة تحميل الطلاب وعرضهم
+        function loadStudents() {
+            const tableBody = document.getElementById('student-table-body');
+            const countBadge = document.getElementById('st-count');
+            
+            // قراءة البيانات من localStorage بنفس المفتاح المستخدم في index.html
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+            
+            countBadge.innerText = students.length;
+
+            if (students.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="4" class="text-center py-10 opacity-30 text-sm">لا توجد طلبات حالياً</td></tr>`;
+                return;
+            }
+
+            tableBody.innerHTML = students.map((s, index) => `
+                <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                    <td class="py-4 text-xs font-bold">${s.name}</td>
+                    <td class="py-4 text-[10px] opacity-60">${s.email}</td>
+                    <td class="py-4">
+                        <span class="${s.status === 'active' ? 'text-green-500' : 'text-yellow-500'} text-[10px] font-bold">
+                            ${s.status === 'active' ? 'مقبول' : 'بانتظار الموافقة'}
+                        </span>
+                    </td>
+                    <td class="py-4 flex justify-center gap-2">
+                        ${s.status === 'pending' ? 
+                            `<button onclick="approve(${index})" class="btn-action bg-green-600 hover:bg-green-700">قبول</button>` : 
+                            `<span class="text-green-500 text-xs">✓ تم</span>`
+                        }
+                        <button onclick="deleteStudent(${index})" class="btn-action bg-red-600/20 text-red-500 border border-red-500/30 hover:bg-red-600/40">حذف</button>
+                    </td>
+                </tr>
+            `).join('');
         }
 
+        // قبول الطالب
+        function approve(index) {
+            let students = JSON.parse(localStorage.getItem('students'));
+            students[index].status = 'active';
+            localStorage.setItem('students', JSON.stringify(students));
+            loadStudents(); // تحديث الجدول فوراً
+        }
+
+        // حذف الطالب
+        function deleteStudent(index) {
+            if(confirm('هل أنت متأكد من حذف هذا الطالب نهائياً؟')) {
+                let students = JSON.parse(localStorage.getItem('students'));
+                students.splice(index, 1);
+                localStorage.setItem('students', JSON.stringify(students));
+                loadStudents();
+            }
+        }
+
+        // إضافة محتوى تعليمي
+        function addContent() {
+            const lesson = {
+                type: document.getElementById('course-cat').value,
+                mode: document.getElementById('course-mode').value,
+                title: document.getElementById('course-tit').value,
+                link: document.getElementById('course-lnk').value
+            };
+            if(!lesson.title || !lesson.link) return alert("برجاء ملء البيانات");
+            let lessons = JSON.parse(localStorage.getItem('lessons')) || [];
+            lessons.push(lesson);
+            localStorage.setItem('lessons', JSON.stringify(lessons));
+            alert('تم نشر الدرس بنجاح!');
+            document.getElementById('course-tit').value = '';
+            document.getElementById('course-lnk').value = '';
+        }
+
+        // إضافة توثيق
         function addDoc() {
             const doc = {
-                title: document.getElementById('doc-title').value,
-                date: document.getElementById('doc-date').value,
+                title: document.getElementById('doc-tit').value,
                 img: document.getElementById('doc-img').value
             };
-            let data = JSON.parse(localStorage.getItem('docs')) || [];
-            data.push(doc);
-            localStorage.setItem('docs', JSON.stringify(data));
-            alert("تم إضافة التوثيق بنجاح");
+            if(!doc.title || !doc.img) return alert("برجاء ملء البيانات");
+            let docs = JSON.parse(localStorage.getItem('docs')) || [];
+            docs.push(doc);
+            localStorage.setItem('docs', JSON.stringify(docs));
+            alert('تم إضافة التوثيق بنجاح!');
+            document.getElementById('doc-tit').value = '';
+            document.getElementById('doc-img').value = '';
         }
+
+        // تشغيل التحميل عند فتح الصفحة
+        window.onload = loadStudents;
     </script>
 </body>
 </html>
