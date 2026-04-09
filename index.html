@@ -3,175 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المنصة الدولية | د. علي سعد</title>
+    <title>International Platform | Dr. Ali Saad</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body { font-family: 'Cairo', sans-serif; background: #020617; overflow-x: hidden; color: white; }
-        
-        /* تصميم الزجاج الاحترافي */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-        }
-
-        .input-glass {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            transition: all 0.3s;
-        }
-        .input-glass:focus {
-            border-color: #3b82f6;
-            background: rgba(59, 130, 246, 0.1);
-            outline: none;
-        }
-
-        .btn-shiny {
-            background: linear-gradient(45deg, #1d4ed8, #3b82f6);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-            transition: all 0.3s;
-        }
-        .btn-shiny:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); }
-
-        .tab-btn { transition: all 0.3s; border-bottom: 2px solid transparent; }
-        .tab-btn.active { border-color: #3b82f6; color: #3b82f6; }
+        /* إضافة لمسة احترافية للغة الإنجليزية في العناوين */
+        .en-title { font-family: 'sans-serif'; letter-spacing: 1px; }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
 
-    <div class="fixed top-0 -left-20 w-72 h-72 bg-blue-600/20 rounded-full blur-[120px]"></div>
-    <div class="fixed bottom-0 -right-20 w-72 h-72 bg-purple-600/10 rounded-full blur-[120px]"></div>
-
-    <div class="container max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+    <div class="container max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10">
         
-        <div id="cv-section" class="space-y-6 text-right">
-            <div class="relative inline-block">
-                <img src="IMG-20260408-WA0090.jpg" alt="Dr. Ali" class="w-32 h-32 rounded-3xl object-cover border-2 border-blue-500 shadow-2xl mb-4">
-                <div class="absolute -bottom-2 -right-2 bg-blue-600 p-1 rounded-full text-[10px]">✔</div>
+        <div id="cv-section" class="space-y-6 text-right p-4">
+            <div class="flex flex-col items-start lg:items-end">
+                <img src="IMG-20260408-WA0090.jpg" class="w-24 h-24 md:w-32 md:h-32 rounded-3xl border-2 border-blue-500 shadow-2xl object-cover mb-4">
+                <h1 class="text-3xl md:text-5xl font-black en-title text-white uppercase">Dr. Ali Saad</h1>
+                <h2 class="text-blue-500 font-bold text-lg md:text-xl mt-2">INTERNATIONAL PLATFORM</h2>
             </div>
-            <h1 class="text-5xl font-black tracking-tight">د. علي سعد <span class="text-blue-500">أبو ضيف</span></h1>
-            <p class="text-slate-400 leading-relaxed text-lg">
-                خبير التدريب الدولي والإنقاذ، ومؤسس الأكاديمية الدولية للسباحة. نهتم ببناء جيل رياضي محترف وفق معايير علمية دقيقة.
-            </p>
-            <div class="grid grid-cols-2 gap-4 pt-4">
-                <div class="glass-panel p-4 text-center">
-                    <h4 class="text-blue-500 font-bold text-2xl">10+</h4>
-                    <p class="text-xs text-slate-500">سنوات خبرة</p>
+
+            <div class="glass-panel p-6 space-y-4 border-r-4 border-blue-600">
+                <div class="flex items-start gap-3">
+                    <span class="text-blue-500 mt-1">✦</span>
+                    <p class="text-sm md:text-base font-bold text-slate-100">مدرس مساعد بكلية علوم الرياضة - تخصص سباحة</p>
                 </div>
-                <div class="glass-panel p-4 text-center">
-                    <h4 class="text-blue-500 font-bold text-2xl">1000+</h4>
-                    <p class="text-xs text-slate-500">خريج معتمد</p>
+                <div class="flex items-start gap-3">
+                    <span class="text-blue-500 mt-1">✦</span>
+                    <p class="text-sm md:text-base font-bold text-slate-100">المدير الفني لبرنامج "البطل الذهبي" لتعليم السباحة بأسيوط</p>
                 </div>
+                <div class="flex items-start gap-3">
+                    <span class="text-blue-500 mt-1">✦</span>
+                    <p class="text-sm md:text-base font-bold text-slate-100">مدرب إنقاذ دولي معتمد من الاتحاد المصري والدولي للغوص والإنقاذ (ILD)</p>
+                </div>
+            </div>
+            
+            <div class="flex gap-4 opacity-70">
+                <div class="text-[10px] font-bold border border-white/20 px-3 py-1 rounded-full uppercase">Swimming Expert</div>
+                <div class="text-[10px] font-bold border border-white/20 px-3 py-1 rounded-full uppercase">International Trainer</div>
             </div>
         </div>
 
-        <div class="glass-panel p-8 lg:p-10 shadow-2xl relative overflow-hidden">
-            
-            <div class="flex gap-8 mb-8 border-b border-white/5">
-                <button onclick="switchTab('login')" id="login-tab" class="tab-btn active pb-3 font-bold">تسجيل الدخول</button>
-                <button onclick="switchTab('register')" id="register-tab" class="tab-btn pb-3 font-bold text-slate-500">طالب جديد</button>
+        <div class="glass-panel p-6 md:p-10 w-full">
+            <div class="tab-nav flex justify-center lg:justify-start gap-8">
+                <button onclick="switchTab('login')" id="login-tab" class="tab-btn active text-lg">دخول</button>
+                <button onclick="switchTab('register')" id="register-tab" class="tab-btn text-lg">طالب جديد</button>
             </div>
 
-            <form id="login-form" class="space-y-5" onsubmit="handleLogin(event)">
-                <div>
-                    <label class="block text-sm text-slate-400 mb-2">البريد الإلكتروني</label>
-                    <input type="email" id="login-email" required class="w-full p-4 rounded-xl input-glass" placeholder="example@mail.com">
+            <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
+                <div class="input-group">
+                    <label class="input-label">البريد الإلكتروني</label>
+                    <input type="email" id="l-email" placeholder="example@gmail.com" class="input-glass" required>
                 </div>
-                <div>
-                    <label class="block text-sm text-slate-400 mb-2">كلمة المرور</label>
-                    <input type="password" id="login-pass" required class="w-full p-4 rounded-xl input-glass" placeholder="••••••••">
+                <div class="input-group">
+                    <label class="input-label">كلمة المرور</label>
+                    <input type="password" id="l-pass" placeholder="••••••••" class="input-glass" required>
                 </div>
-                <button type="submit" class="w-full py-4 rounded-xl btn-shiny font-bold text-lg">دخول المنصة</button>
+                <button type="submit" class="btn-primary w-full py-4 text-lg">LOGIN TO PLATFORM</button>
             </form>
 
-            <form id="register-form" class="space-y-4 hidden" onsubmit="handleRegister(event)">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm text-slate-400 mb-1">الاسم الرباعي</label>
-                        <input type="text" required class="w-full p-3 rounded-xl input-glass text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-sm text-slate-400 mb-1">رقم الهاتف</label>
-                        <input type="tel" required class="w-full p-3 rounded-xl input-glass text-sm">
-                    </div>
+            <form id="register-form" class="hidden space-y-3" onsubmit="handleRegister(event)">
+                <input type="text" id="r-name" placeholder="الاسم الرباعي" class="input-glass" required>
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="tel" id="r-phone" placeholder="رقم الهاتف" class="input-glass" required>
+                    <input type="text" id="r-id" placeholder="الرقم القومي" class="input-glass" required>
                 </div>
-                <div>
-                    <label class="block text-sm text-slate-400 mb-1">الرقم القومي (14 رقم)</label>
-                    <input type="text" maxlength="14" required class="w-full p-3 rounded-xl input-glass text-sm">
-                </div>
-                <div>
-                    <label class="block text-sm text-slate-400 mb-1">البريد الإلكتروني</label>
-                    <input type="email" required class="w-full p-3 rounded-xl input-glass text-sm">
-                </div>
-                <div>
-                    <label class="block text-sm text-slate-400 mb-1">كلمة المرور</label>
-                    <input type="password" required class="w-full p-3 rounded-xl input-glass text-sm">
-                </div>
-                <button type="submit" class="w-full py-4 rounded-xl btn-shiny font-bold">إنشاء حساب بانتظار القبول</button>
+                <input type="email" id="r-email" placeholder="البريد الإلكتروني" class="input-glass" required>
+                <input type="password" id="r-pass" placeholder="كلمة المرور" class="input-glass" required>
+                <button type="submit" class="btn-primary w-full py-4">REQUEST REGISTRATION</button>
             </form>
-
-            <p id="msg-box" class="mt-6 text-center text-sm font-bold text-blue-400 hidden"></p>
+            
+            <p id="msg" class="text-center text-xs mt-4 font-bold text-blue-400"></p>
         </div>
     </div>
 
-    <footer class="fixed bottom-6 text-center w-full opacity-30">
-        <p class="text-[10px] font-bold tracking-widest">DEVELOPED BY ENG. ABDEL NASSER</p>
+    <footer class="fixed bottom-4 text-center w-full pointer-events-none">
+        <p class="text-[9px] md:text-[11px] font-bold tracking-[0.3em] opacity-30 uppercase">
+            Developed by Eng. Abdel Nasser
+        </p>
     </footer>
 
     <script>
-        // بيانات الأدمن اللي حضرتك طلبتها
         const ADMIN_EMAIL = "doctor.ali.saad@gmail.com";
         const ADMIN_PASS = "Dr.AliSaad111222#";
 
-        function switchTab(type) {
-            const loginForm = document.getElementById('login-form');
-            const registerForm = document.getElementById('register-form');
-            const loginTab = document.getElementById('login-tab');
-            const registerTab = document.getElementById('register-tab');
-
-            if(type === 'login') {
-                loginForm.classList.remove('hidden');
-                registerForm.classList.add('hidden');
-                loginTab.classList.add('active');
-                registerTab.classList.remove('active');
-            } else {
-                loginForm.classList.add('hidden');
-                registerForm.classList.remove('hidden');
-                registerTab.classList.add('active');
-                loginTab.classList.remove('active');
-            }
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            const pass = document.getElementById('login-pass').value;
-
-            if(email === ADMIN_EMAIL && pass === ADMIN_PASS) {
-                alert("مرحباً يا دكتور علي.. جاري فتح لوحة الإدارة");
-                window.location.href = "admin.html"; // سيتم إنشاؤه
-            } else {
-                // محاكاة دخول طالب مقبول
-                alert("تم تسجيل الدخول بنجاح.. جاري نقلك للمنصة");
-                window.location.href = "student.html"; // سيتم إنشاؤه
-            }
+        function switchTab(t) {
+            document.getElementById('login-form').classList.toggle('hidden', t === 'register');
+            document.getElementById('register-form').classList.toggle('hidden', t === 'login');
+            document.getElementById('login-tab').className = t === 'login' ? 'tab-btn active' : 'tab-btn';
+            document.getElementById('register-tab').className = t === 'register' ? 'tab-btn active' : 'tab-btn';
         }
 
         function handleRegister(e) {
             e.preventDefault();
-            const msgBox = document.getElementById('msg-box');
-            msgBox.innerText = "تم إنشاء حسابك بنجاح.. بانتظار قبول المشرف لتتمكن من الدخول.";
-            msgBox.classList.remove('hidden');
+            const student = {
+                name: document.getElementById('r-name').value,
+                phone: document.getElementById('r-phone').value,
+                id: document.getElementById('r-id').value,
+                email: document.getElementById('r-email').value,
+                pass: document.getElementById('r-pass').value,
+                status: 'pending'
+            };
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+            students.push(student);
+            localStorage.setItem('students', JSON.stringify(students));
+            document.getElementById('msg').innerText = "تم إرسال طلبك. سيقوم الدكتور بمراجعته والموافقة عليه قريباً.";
             e.target.reset();
         }
 
-        // أنيميشن البداية
-        gsap.from("#cv-section", { duration: 1, x: 50, opacity: 0, ease: "power3.out" });
-        gsap.from(".glass-panel", { duration: 1, x: -50, opacity: 0, delay: 0.2, ease: "power3.out" });
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('l-email').value;
+            const pass = document.getElementById('l-pass').value;
+
+            if(email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+                location.href = 'admin.html';
+                return;
+            }
+
+            let students = JSON.parse(localStorage.getItem('students')) || [];
+            const user = students.find(s => s.email === email && s.pass === pass);
+            
+            if(user) {
+                if(user.status === 'active') {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    location.href = 'student.html';
+                } else {
+                    alert("عذراً، حسابك قيد المراجعة لدى الإدارة.");
+                }
+            } else {
+                alert("البريد الإلكتروني أو كلمة المرور غير صحيحة.");
+            }
+        }
     </script>
 </body>
 </html>
