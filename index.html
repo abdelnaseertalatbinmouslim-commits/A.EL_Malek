@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="dark">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,213 +8,170 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <style>
-        body { font-family: 'Cairo', sans-serif; transition: background 0.5s ease; overflow: hidden; }
+        body { font-family: 'Cairo', sans-serif; background: #020617; overflow-x: hidden; color: white; }
         
-        /* تأثير الزجاج المتطور (Ultra Glass) */
-        .ultra-glass {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        /* تصميم الكروت الاحترافي (Pro Cards) */
-        .pro-card {
+        /* تصميم الزجاج الاحترافي */
+        .glass-panel {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .pro-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.3);
-            border-color: rgba(59, 130, 246, 0.5);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
         }
 
-        /* أنيميشن زرار القائمة النشط */
-        .nav-link { position: relative; transition: color 0.3s ease; }
-        .nav-link.active { color: #3b82f6; font-weight: 900; }
-        .nav-link.active::after {
-            content: ''; position: absolute; right: -1.5rem; top: 50%; transform: translateY(-50%);
-            width: 6px; height: 25px; background: #3b82f6; border-radius: 3px;
-            animation: line-grow 0.3s ease-out;
+        .input-glass {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s;
         }
-        @keyframes line-grow { from { height: 0; } to { height: 25px; } }
+        .input-glass:focus {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
 
-        /* منطقة المحتوى القابلة للتمرير */
-        .content-scroll { height: calc(100vh - 120px); overflow-y: auto; padding-right: 10px; }
-        .content-scroll::-webkit-scrollbar { width: 6px; }
-        .content-scroll::-webkit-scrollbar-thumb { background: rgba(59, 130, 246, 0.2); border-radius: 3px; }
+        .btn-shiny {
+            background: linear-gradient(45deg, #1d4ed8, #3b82f6);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s;
+        }
+        .btn-shiny:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); }
 
+        .tab-btn { transition: all 0.3s; border-bottom: 2px solid transparent; }
+        .tab-btn.active { border-color: #3b82f6; color: #3b82f6; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100">
+<body class="min-h-screen flex items-center justify-center p-4">
 
-    <div class="flex min-h-screen">
+    <div class="fixed top-0 -left-20 w-72 h-72 bg-blue-600/20 rounded-full blur-[120px]"></div>
+    <div class="fixed bottom-0 -right-20 w-72 h-72 bg-purple-600/10 rounded-full blur-[120px]"></div>
+
+    <div class="container max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         
-        <aside class="w-72 ultra-glass border-l border-white/5 p-8 flex flex-col z-50 relative">
-            
-            <div class="mb-12 text-center relative group">
-                <div class="w-24 h-24 rounded-full border-4 border-blue-600 mx-auto p-1 mb-4 shadow-lg shadow-blue-500/30 transition-transform group-hover:scale-105">
-                    <img src="IMG-20260408-WA0090.jpg" alt="Dr. Ali Saad" class="rounded-full w-full h-full object-cover">
+        <div id="cv-section" class="space-y-6 text-right">
+            <div class="relative inline-block">
+                <img src="IMG-20260408-WA0090.jpg" alt="Dr. Ali" class="w-32 h-32 rounded-3xl object-cover border-2 border-blue-500 shadow-2xl mb-4">
+                <div class="absolute -bottom-2 -right-2 bg-blue-600 p-1 rounded-full text-[10px]">✔</div>
+            </div>
+            <h1 class="text-5xl font-black tracking-tight">د. علي سعد <span class="text-blue-500">أبو ضيف</span></h1>
+            <p class="text-slate-400 leading-relaxed text-lg">
+                خبير التدريب الدولي والإنقاذ، ومؤسس الأكاديمية الدولية للسباحة. نهتم ببناء جيل رياضي محترف وفق معايير علمية دقيقة.
+            </p>
+            <div class="grid grid-cols-2 gap-4 pt-4">
+                <div class="glass-panel p-4 text-center">
+                    <h4 class="text-blue-500 font-bold text-2xl">10+</h4>
+                    <p class="text-xs text-slate-500">سنوات خبرة</p>
                 </div>
-                <h2 class="text-white font-black text-lg tracking-tight">د. علي سعد أبو ضيف</h2>
-                <p class="text-xs text-blue-400 font-bold mt-1">الأكاديمية الدولية للسباحة</p>
-                <div class="absolute top-0 right-1/2 translate-x-12 bg-blue-500 p-1 rounded-full text-white text-xs">✔</div>
-            </div>
-
-            <nav class="space-y-4 flex-1">
-                <button onclick="navigateTo('courses')" class="nav-link active w-full flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition">
-                    <span class="text-2xl">📚</span> <span class="font-bold">الكورسات التدريبية</span>
-                </button>
-                <button onclick="navigateTo('subscriptions')" class="nav-link w-full flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition">
-                    <span class="text-2xl">💳</span> <span class="font-bold">حالة الاشتراكات</span>
-                </button>
-                <button onclick="navigateTo('followup')" class="nav-link w-full flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition">
-                    <span class="text-2xl">📈</span> <span class="font-bold">تقارير المتابعة</span>
-                </button>
-                <button onclick="navigateTo('notes')" class="nav-link w-full flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition">
-                    <span class="text-2xl">📝</span> <span class="font-bold">ملاحظات الإدارة</span>
-                </button>
-            </nav>
-
-            <div class="border-t border-white/5 pt-6 mt-6 space-y-3">
-                <button class="w-full flex items-center gap-3 text-slate-500 hover:text-white text-sm"><span>⚙️</span> الإعدادات</button>
-                <button class="w-full flex items-center gap-3 text-red-500 hover:text-red-400 text-sm font-bold"><span>🚪</span> تسجيل الخروج</button>
-            </div>
-        </aside>
-
-        <main class="flex-1 p-12 relative overflow-hidden">
-            
-            <header class="flex justify-between items-center mb-10 pb-6 border-b border-white/5">
-                <h1 id="page-title" class="text-4xl font-black text-white">الأكاديمية التعليمية</h1>
-                <div class="flex items-center gap-4">
-                    <span class="text-sm text-slate-400">أهلاً، <strong class="text-white">عبد الناصر</strong></span>
-                    <div class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-blue-500">A</div>
+                <div class="glass-panel p-4 text-center">
+                    <h4 class="text-blue-500 font-bold text-2xl">1000+</h4>
+                    <p class="text-xs text-slate-500">خريج معتمد</p>
                 </div>
-            </header>
+            </div>
+        </div>
 
-            <div id="content-container" class="content-scroll">
-                
-                <section id="page-courses" class="page-content space-y-8">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="pro-card p-8 rounded-3xl relative overflow-hidden group">
-                            <div class="text-6xl mb-6 opacity-80 group-hover:scale-110 transition-transform">🏊‍♂️</div>
-                            <h3 class="text-2xl font-black text-white mb-3">دبلومة السباحة</h3>
-                            <p class="text-slate-400 text-sm mb-6">محتوى نظري شامل وفيديوهات عملي لأحدث طرق التدريب.</p>
-                            <button class="py-3 px-6 bg-blue-600 rounded-xl font-bold text-sm">دخول المحاضرات</button>
-                            <div class="absolute -bottom-10 -right-10 text-9xl opacity-5 group-hover:opacity-10 transition">🏊‍♂️</div>
-                        </div>
-                        <div class="pro-card p-8 rounded-3xl relative overflow-hidden group">
-                            <div class="text-6xl mb-6 opacity-80 group-hover:scale-110 transition-transform">🛟</div>
-                            <h3 class="text-2xl font-black text-white mb-3">كورس الإنقاذ</h3>
-                            <p class="text-slate-400 text-sm mb-6">تأهيل دولي معتمد للعمل كمنقذ شواطئ وحمامات سباحة.</p>
-                            <button class="py-3 px-6 bg-red-600 rounded-xl font-bold text-sm">دخول المحاضرات</button>
-                            <div class="absolute -bottom-10 -right-10 text-9xl opacity-5 group-hover:opacity-10 transition">🛟</div>
-                        </div>
-                        <div class="pro-card p-8 rounded-3xl relative overflow-hidden group">
-                            <div class="text-6xl mb-6 opacity-80 group-hover:scale-110 transition-transform">👨‍🏫</div>
-                            <h3 class="text-2xl font-black text-white mb-3">إعداد معلم سباحة</h3>
-                            <p class="text-slate-400 text-sm mb-6">تأهيل الكوادر الفنية للعمل الأكاديمي والتدريب الاحترافي.</p>
-                            <button class="py-3 px-6 bg-green-600 rounded-xl font-bold text-sm">دخول المحاضرات</button>
-                            <div class="absolute -bottom-10 -right-10 text-9xl opacity-5 group-hover:opacity-10 transition">👨‍🏫</div>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="page-subscriptions" class="page-content hidden space-y-8">
-                    <div class="pro-card p-10 rounded-3xl flex justify-between items-center border-r-4 border-yellow-500">
-                        <div>
-                            <p class="text-slate-400 text-sm mb-1">نوع الباقة الحالية</p>
-                            <h2 class="text-3xl font-black text-yellow-500 mb-2">البطل الذهبي (بريميوم)</h2>
-                            <p class="text-slate-500 text-xs">تاريخ التجديد: <strong class="text-white">01/07/2026</strong></p>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-sm text-green-500 font-bold bg-green-500/10 px-4 py-1 rounded-full mb-3">نشط</div>
-                            <button class="py-2 px-5 bg-slate-800 rounded-lg text-xs font-bold border border-slate-700">تجديد الاشتراك</button>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="page-followup" class="page-content hidden space-y-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="pro-card p-8 rounded-3xl text-center">
-                            <h4 class="font-bold text-slate-400 mb-4">تقييم الأداء الفني</h4>
-                            <div class="text-7xl font-black text-blue-500 py-6">9.2<span class="text-2xl text-slate-600">/10</span></div>
-                            <p class="text-xs text-slate-500 italic">"تميز في التكنيك العام، يحتاج لتركيز على الكتم"</p>
-                        </div>
-                        <div class="pro-card p-8 rounded-3xl text-center">
-                            <h4 class="font-bold text-slate-400 mb-4">نسبة الالتزام بالتدريب</h4>
-                            <div class="text-7xl font-black text-green-500 py-6">98<span class="text-2xl text-slate-600">%</span></div>
-                            <p class="text-xs text-slate-500 italic">"التزام ممتاز بالحضور والمواعيد"</p>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="page-notes" class="page-content hidden space-y-6">
-                    <div class="bg-slate-900/50 p-6 rounded-2xl border-r-4 border-blue-600 relative">
-                        <span class="absolute top-4 left-4 text-xs text-slate-600">08/04/2026</span>
-                        <p class="text-sm font-bold text-blue-400 mb-2">من: د. علي سعد</p>
-                        <p class="text-white text-sm leading-relaxed">يرجى مراجعة فيديوهات "النفس الجانبي" قبل المحاضرة العملية القادمة.</p>
-                    </div>
-                    <div class="bg-slate-900/50 p-6 rounded-2xl border-r-4 border-slate-700 relative">
-                        <span class="absolute top-4 left-4 text-xs text-slate-600">02/04/2026</span>
-                        <p class="text-sm font-bold text-slate-400 mb-2">من: الإدارة</p>
-                        <p class="text-white text-sm leading-relaxed">تم تفعيل حسابك بنجاح، أهلاً بك في الأكاديمية.</p>
-                    </div>
-                </section>
-
+        <div class="glass-panel p-8 lg:p-10 shadow-2xl relative overflow-hidden">
+            
+            <div class="flex gap-8 mb-8 border-b border-white/5">
+                <button onclick="switchTab('login')" id="login-tab" class="tab-btn active pb-3 font-bold">تسجيل الدخول</button>
+                <button onclick="switchTab('register')" id="register-tab" class="tab-btn pb-3 font-bold text-slate-500">طالب جديد</button>
             </div>
 
-        </main>
+            <form id="login-form" class="space-y-5" onsubmit="handleLogin(event)">
+                <div>
+                    <label class="block text-sm text-slate-400 mb-2">البريد الإلكتروني</label>
+                    <input type="email" id="login-email" required class="w-full p-4 rounded-xl input-glass" placeholder="example@mail.com">
+                </div>
+                <div>
+                    <label class="block text-sm text-slate-400 mb-2">كلمة المرور</label>
+                    <input type="password" id="login-pass" required class="w-full p-4 rounded-xl input-glass" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full py-4 rounded-xl btn-shiny font-bold text-lg">دخول المنصة</button>
+            </form>
+
+            <form id="register-form" class="space-y-4 hidden" onsubmit="handleRegister(event)">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-1">الاسم الرباعي</label>
+                        <input type="text" required class="w-full p-3 rounded-xl input-glass text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-slate-400 mb-1">رقم الهاتف</label>
+                        <input type="tel" required class="w-full p-3 rounded-xl input-glass text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm text-slate-400 mb-1">الرقم القومي (14 رقم)</label>
+                    <input type="text" maxlength="14" required class="w-full p-3 rounded-xl input-glass text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm text-slate-400 mb-1">البريد الإلكتروني</label>
+                    <input type="email" required class="w-full p-3 rounded-xl input-glass text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm text-slate-400 mb-1">كلمة المرور</label>
+                    <input type="password" required class="w-full p-3 rounded-xl input-glass text-sm">
+                </div>
+                <button type="submit" class="w-full py-4 rounded-xl btn-shiny font-bold">إنشاء حساب بانتظار القبول</button>
+            </form>
+
+            <p id="msg-box" class="mt-6 text-center text-sm font-bold text-blue-400 hidden"></p>
+        </div>
     </div>
 
-    <footer class="fixed bottom-4 left-4 z-[60]">
-        <p class="text-[9px] tracking-[0.3em] text-slate-700 font-bold uppercase mb-1">Developed By</p>
-        <h4 class="text-blue-950 font-black text-xs italic opacity-80">Eng. Abdel Nasser</h4>
+    <footer class="fixed bottom-6 text-center w-full opacity-30">
+        <p class="text-[10px] font-bold tracking-widest">DEVELOPED BY ENG. ABDEL NASSER</p>
     </footer>
 
     <script>
-        // تعريف عناوين الصفحات
-        const pageTitles = {
-            'courses': 'الأكاديمية التعليمية',
-            'subscriptions': 'مركز الاشتراكات',
-            'followup': 'لوحة تحكم الأداء',
-            'notes': 'صندوق الوارد والملاحظات'
-        };
+        // بيانات الأدمن اللي حضرتك طلبتها
+        const ADMIN_EMAIL = "doctor.ali.saad@gmail.com";
+        const ADMIN_PASS = "Dr.AliSaad111222#";
 
-        // وظيفة التنقل الذكية (SPA Navigation with GSAP)
-        function navigateTo(pageId) {
-            const container = document.getElementById('content-container');
-            const targetPage = document.getElementById('page-' + pageId);
-            const allPages = document.querySelectorAll('.page-content');
-            const allLinks = document.querySelectorAll('.nav-link');
+        function switchTab(type) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const loginTab = document.getElementById('login-tab');
+            const registerTab = document.getElementById('register-tab');
 
-            // 1. تحديث شكل القائمة الجانبية (Active State)
-            allLinks.forEach(link => link.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-
-            // 2. أنيميشن خروج الصفحة الحالية
-            gsap.to('.page-content:not(.hidden)', {
-                duration: 0.3, opacity: 0, y: 20, onComplete: () => {
-                    // إخفاء كل الصفحات
-                    allPages.forEach(page => page.classList.add('hidden'));
-                    
-                    // إظهار الصفحة المطلوبة وتجهيزها للأنيميشن
-                    targetPage.classList.remove('hidden');
-                    gsap.set(targetPage, { opacity: 0, y: -20 });
-
-                    // تحديث عنوان الصفحة
-                    document.getElementById('page-title').innerText = pageTitles[pageId];
-
-                    // 3. أنيميشن دخول الصفحة الجديدة
-                    gsap.to(targetPage, { duration: 0.5, opacity: 1, y: 0, ease: "back.out(1.7)" });
-                }
-            });
+            if(type === 'login') {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                loginTab.classList.add('active');
+                registerTab.classList.remove('active');
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                registerTab.classList.add('active');
+                loginTab.classList.remove('active');
+            }
         }
 
-        // أنيميشن عند تحميل الصفحة لأول مرة
-        gsap.from("aside", { duration: 1, x: 100, opacity: 0, ease: "expo.out" });
-        gsap.from("main header", { duration: 1, y: -50, opacity: 0, delay: 0.3, ease: "expo.out" });
-        gsap.from("#page-courses .pro-card", { duration: 0.8, y: 50, opacity: 0, stagger: 0.2, delay: 0.5, ease: "back.out(1.7)" });
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+
+            if(email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+                alert("مرحباً يا دكتور علي.. جاري فتح لوحة الإدارة");
+                window.location.href = "admin.html"; // سيتم إنشاؤه
+            } else {
+                // محاكاة دخول طالب مقبول
+                alert("تم تسجيل الدخول بنجاح.. جاري نقلك للمنصة");
+                window.location.href = "student.html"; // سيتم إنشاؤه
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const msgBox = document.getElementById('msg-box');
+            msgBox.innerText = "تم إنشاء حسابك بنجاح.. بانتظار قبول المشرف لتتمكن من الدخول.";
+            msgBox.classList.remove('hidden');
+            e.target.reset();
+        }
+
+        // أنيميشن البداية
+        gsap.from("#cv-section", { duration: 1, x: 50, opacity: 0, ease: "power3.out" });
+        gsap.from(".glass-panel", { duration: 1, x: -50, opacity: 0, delay: 0.2, ease: "power3.out" });
     </script>
 </body>
 </html>
